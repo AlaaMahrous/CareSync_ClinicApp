@@ -13,9 +13,13 @@ class SettingsModel extends HiveObject {
   @HiveField(2)
   bool isDoctor;
 
+  @HiveField(3)
+  String userId;
+
   SettingsModel({
     required this.isFirstTime,
     required this.isLoggedIn,
     required this.isDoctor,
+    required this.userId,
   });
 }

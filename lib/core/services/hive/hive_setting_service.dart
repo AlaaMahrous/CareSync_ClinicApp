@@ -18,6 +18,7 @@ class SettingsService {
         isFirstTime: true,
         isLoggedIn: false,
         isDoctor: false,
+        userId: '',
       ),
     )!;
   }
@@ -26,11 +27,13 @@ class SettingsService {
     bool? isFirstTime,
     bool? isLoggedIn,
     bool? isDoctor,
+    String? userId,
   }) {
     final settings = getSettings();
     settings.isFirstTime = isFirstTime ?? settings.isFirstTime;
     settings.isLoggedIn = isLoggedIn ?? settings.isLoggedIn;
     settings.isDoctor = isDoctor ?? settings.isDoctor;
+    settings.userId = userId ?? settings.userId;
     settings.save();
   }
 }

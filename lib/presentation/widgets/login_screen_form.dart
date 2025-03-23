@@ -1,10 +1,17 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/sup_auth_service.dart';
+import 'package:clinic/core/utils/app_constants.dart';
+import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:clinic/presentation/widgets/login_screen_body.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreenForm extends StatefulWidget {
   const LoginScreenForm({super.key});
@@ -24,6 +31,9 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: _isLoading,
+      progressIndicator: const CircularProgressIndicator(
+        color: ColorsManager.mainAppColor,
+      ),
       child: Form(
         key: _formKey,
         autovalidateMode: _autovalidateMode,
@@ -32,12 +42,20 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
             email = value;
           },
           emailValidator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Email is required';
+            } else if (!value.endsWith('@gmail.com')) {
+              return 'Email must end with @gmail.com';
+            }
             return null;
           },
           passwordOnSaved: (value) {
             password = value;
           },
           passwordValidator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Password is required';
+            }
             return null;
           },
           suffixPasswordIcon: IconButton(
@@ -67,15 +85,40 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
           email!,
           password!,
         );
+
         if (response.session != null) {
-          if (mounted) {
-            GoRouter.of(context).replace(UserDetailsScreen.path);
+          String userEmail = SupAuthService.instance.getCurrentUserEmail()!;
+          if (userEmail.isNotEmpty) {
+            final userType = await SupAuthService.instance.getCurrentUserType(
+              userEmail,
+            );
+            final userId = await SupAuthService.instance.getCurrentUserId(
+              userEmail,
+            );
+            bool isDoctor = userType == AppConstants.doctor;
+            SettingsService.updateSettings(isDoctor: isDoctor, userId: userId);
+            if (mounted) {
+              showMessage(context, "Login successful!", Colors.green);
+              GoRouter.of(context).replace(UserDetailsScreen.path);
+            }
           }
-        } else {
-          _showError("Sign up failed. Please try again.");
         }
+      } on AuthException catch (e) {
+        log("AuthException: ${e.message}");
+        String errorMessage = e.message.toLowerCase();
+        if (errorMessage.contains("Invalid login credentials")) {
+          _showError("Incorrect email or password.");
+        } else if (errorMessage.contains("User not found")) {
+          _showError("No account found with this email.");
+        } else if (errorMessage.contains("User is not confirmed")) {
+          _showError("Your account is not confirmed. Please check your email.");
+        } else {
+          _showError("Authentication error: $errorMessage");
+        }
+      } on SocketException {
+        _showError("No internet connection. Please check your network.");
       } catch (e) {
-        _showError(e.toString());
+        _showError("Login failed, an error occurred: ${e.toString()}");
       } finally {
         setState(() {
           _isLoading = false;

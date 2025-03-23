@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:clinic/core/services/supabase/sup_auth_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
@@ -6,6 +9,7 @@ import 'package:clinic/presentation/widgets/sign_up_screen_body.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpScreenForm extends StatefulWidget {
   const SignUpScreenForm({super.key});
@@ -59,7 +63,6 @@ class _SignUpScreenFormState extends State<SignUpScreenForm> {
             }
             return null;
           },
-
           confirmPasswordValidator: (value) {
             if (value == null || value.isEmpty) {
               return 'Confirm password is required';
@@ -68,7 +71,6 @@ class _SignUpScreenFormState extends State<SignUpScreenForm> {
             }
             return null;
           },
-
           suffixPasswordIcon: IconButton(
             icon: Icon(obscure ? Icons.visibility_off : Icons.visibility),
             onPressed: () {
@@ -97,11 +99,26 @@ class _SignUpScreenFormState extends State<SignUpScreenForm> {
         );
         if (response.session != null) {
           if (mounted) {
+            showMessage(context, "Sign up successful!", Colors.green);
             GoRouter.of(context).replace(UserDetailsScreen.path);
           }
         } else {
           _showError("Sign up failed. Please try again.");
         }
+      } on AuthException catch (e) {
+        log("AuthException: ${e.message}");
+        String errorMessage = e.message.toLowerCase();
+        if (errorMessage.contains("email already in use")) {
+          _showError("This email is already registered.");
+        } else if (errorMessage.contains("invalid email")) {
+          _showError("Please enter a valid email address.");
+        } else if (errorMessage.contains("weak password")) {
+          _showError("Your password is too weak. Try using a stronger one.");
+        } else {
+          _showError("Sign-up error: ${e.message}");
+        }
+      } on SocketException {
+        _showError("No internet connection. Please check your network.");
       } catch (e) {
         _showError(e.toString());
       } finally {

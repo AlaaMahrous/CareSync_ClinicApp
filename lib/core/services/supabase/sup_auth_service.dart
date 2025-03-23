@@ -1,3 +1,4 @@
+import 'package:clinic/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -45,5 +46,25 @@ class SupAuthService {
     final Session? session = _supabase.auth.currentSession;
     final user = session?.user;
     return user?.email;
+  }
+
+  Future<String> getCurrentUserId(String userEmail) async {
+    final userId =
+        await Supabase.instance.client
+            .from(AppConstants.usersTable)
+            .select(AppConstants.userId)
+            .eq(AppConstants.userEmail, userEmail)
+            .maybeSingle();
+    return userId?[AppConstants.userId];
+  }
+
+  Future<String> getCurrentUserType(String userEmail) async {
+    final userType =
+        await Supabase.instance.client
+            .from(AppConstants.usersTable)
+            .select(AppConstants.userUserType)
+            .eq(AppConstants.userEmail, userEmail)
+            .maybeSingle();
+    return userType?[AppConstants.userUserType];
   }
 }
