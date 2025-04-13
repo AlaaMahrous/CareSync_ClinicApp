@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyleManager {
   TextStyleManager._();
-  static TextStyle loginTitle = const TextStyle(
-    fontSize: 35,
+  static TextStyle loginTitle = TextStyle(
+    fontSize: 35.sp,
     fontWeight: FontWeight.w700,
     fontFamily: 'Cairo',
   );
-  static TextStyle loginInfo = const TextStyle(
-    fontSize: 15,
+  static TextStyle loginInfo = TextStyle(
+    fontSize: 15.sp,
     fontWeight: FontWeight.w800,
     fontFamily: 'Cairo',
   );
   static TextStyle small = const TextStyle(fontFamily: 'Cairo');
-  static const TextStyle loginFeildHint = TextStyle(
+  static TextStyle loginFeildHint = TextStyle(
     color: Colors.grey,
-    fontSize: 15,
+    fontSize: 15.sp,
     fontFamily: 'Cairo',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle loginFeildError = const TextStyle(
+  static TextStyle loginFeildError = TextStyle(
     fontFamily: 'Cairo',
     fontWeight: FontWeight.w600,
-    fontSize: 11.3,
+    fontSize: 11.3.sp,
   );
-  static TextStyle onboardingText = const TextStyle(
+  static TextStyle onboardingText = TextStyle(
     fontFamily: 'Cairo',
-    fontSize: 28,
+    fontSize: 28.sp,
     fontWeight: FontWeight.bold,
   );
 }

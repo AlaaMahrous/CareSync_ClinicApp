@@ -1,6 +1,7 @@
 import 'package:clinic/core/utils/lists_managar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class OnboardingPageView extends StatelessWidget {
@@ -12,19 +13,19 @@ class OnboardingPageView extends StatelessWidget {
     return Column(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(100),
+          borderRadius: BorderRadius.circular(100.r),
           child: Image.asset(
             ListsManagar.onBoardingImages[index],
-            fit: BoxFit.fill,
-            height: 400,
+            fit: BoxFit.contain,
+            height: 400.h,
             width: double.infinity,
             errorBuilder:
                 (context, error, stackTrace) => const Icon(Icons.error),
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             ListsManagar.onBoardingText[index],
             style: TextStyleManager.onboardingText,

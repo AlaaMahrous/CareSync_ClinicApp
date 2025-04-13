@@ -7,8 +7,14 @@ class SettingsService {
 
   static Future<void> init() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(SettingsModelAdapter());
-    _box = await Hive.openBox<SettingsModel>(boxName);
+    if (!Hive.isAdapterRegistered(SettingsModelAdapter().typeId)) {
+      Hive.registerAdapter(SettingsModelAdapter());
+    }
+    if (!Hive.isBoxOpen(boxName)) {
+      _box = await Hive.openBox<SettingsModel>(boxName);
+    } else {
+      _box = Hive.box<SettingsModel>(boxName);
+    }
   }
 
   static SettingsModel getSettings() {

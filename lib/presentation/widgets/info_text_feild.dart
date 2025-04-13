@@ -5,8 +5,8 @@ import 'package:clinic/core/utils/text_style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextFeild extends StatelessWidget {
-  CustomTextFeild({
+class InfoTextFeild extends StatelessWidget {
+  InfoTextFeild({
     super.key,
     this.prefixIcon,
     required this.hintText,
@@ -23,6 +23,7 @@ class CustomTextFeild extends StatelessWidget {
   final void Function(String?)? onSaved;
   final String? Function(String?) validator;
   final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -34,15 +35,21 @@ class CustomTextFeild extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20.w),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        filled: true,
-        fillColor: ColorsManager.feildColor,
         hintText: hintText,
         hintStyle: TextStyleManager.loginFeildHint,
         errorStyle: TextStyleManager.loginFeildError,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.r),
-          borderSide: BorderSide.none,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(
+            color: ColorsManager.mainAppColor,
+            width: 1.7.w,
+          ),
         ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(color: ColorsManager.mainAppColor, width: 1.w),
+        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r)),
       ),
     );
   }

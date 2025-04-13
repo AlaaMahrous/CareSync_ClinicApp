@@ -1,6 +1,7 @@
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -23,11 +24,11 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(r),
+          borderRadius: BorderRadius.circular(r.r),
           color: ColorsManager.mainAppColor,
         ),
-        width: width,
-        height: height,
+        width: width.w,
+        height: height.h,
         child: Center(
           child: Text(
             text,

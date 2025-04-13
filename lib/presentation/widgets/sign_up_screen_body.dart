@@ -7,6 +7,7 @@ import 'package:clinic/presentation/widgets/custom_text_button.dart';
 import 'package:clinic/presentation/widgets/custom_text_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpScreenBody extends StatelessWidget {
   SignUpScreenBody({
@@ -38,21 +39,21 @@ class SignUpScreenBody extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             child: Column(
-              spacing: 13,
+              spacing: 13.h,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 50, bottom: 10),
-                  child: Image.asset(ImageManager.logoPath, height: 90),
+                  padding: EdgeInsets.only(top: 50.h, bottom: 10.h),
+                  child: Image.asset(ImageManager.logoPath, height: 90.h),
                 ),
                 Text('CareSync', style: TextStyleManager.loginTitle),
                 Text(
                   'Create an account now!',
                   style: TextStyleManager.loginInfo,
                 ),
-                const SizedBox(height: 18),
+                SizedBox(height: 18.h),
                 CustomTextFeild(
                   prefixIcon: const Icon(Icons.email_outlined),
                   hintText: 'Your email address',
@@ -78,13 +79,15 @@ class SignUpScreenBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 0),
                 CustomButton(text: 'SignUp', onTap: onSignUpTap),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Already have an account?',
-                      style: TextStyleManager.loginInfo.copyWith(fontSize: 14),
+                      style: TextStyleManager.loginInfo.copyWith(
+                        fontSize: 14.sp,
+                      ),
                     ),
                     CustomTextButton(
                       text: ' Login',

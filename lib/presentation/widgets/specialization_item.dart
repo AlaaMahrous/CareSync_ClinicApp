@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpecializationItem extends StatelessWidget {
   const SpecializationItem({
@@ -13,25 +14,25 @@ class SpecializationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(50.r),
             child: Image.network(
               image,
-              width: 60,
-              height: 60,
+              width: 60.w,
+              height: 60.h,
               fit: BoxFit.cover,
               errorBuilder:
                   (context, error, stackTrace) =>
-                      const Icon(Icons.image_not_supported, size: 60),
+                      Icon(Icons.image_not_supported, size: 60.r),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text(
             specialization,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16.r, fontWeight: FontWeight.bold),
           ),
         ],
       ),

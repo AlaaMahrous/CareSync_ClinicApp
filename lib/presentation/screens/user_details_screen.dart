@@ -1,3 +1,4 @@
+import 'package:clinic/presentation/widgets/user_details_screen_body.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailsScreen extends StatelessWidget {
@@ -6,6 +7,6 @@ class UserDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const UserDetailsScreenBody();
   }
 }

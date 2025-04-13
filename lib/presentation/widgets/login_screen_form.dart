@@ -1,8 +1,6 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/sup_auth_service.dart';
+import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
@@ -27,6 +25,7 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
   String? email;
   String? password;
   bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -85,38 +84,22 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
           email!,
           password!,
         );
-
         if (response.session != null) {
           String userEmail = SupAuthService.instance.getCurrentUserEmail()!;
           if (userEmail.isNotEmpty) {
-            final userType = await SupAuthService.instance.getCurrentUserType(
-              userEmail,
-            );
-            final userId = await SupAuthService.instance.getCurrentUserId(
-              userEmail,
-            );
-            bool isDoctor = userType == AppConstants.doctor;
-            SettingsService.updateSettings(isDoctor: isDoctor, userId: userId);
+            //final userType = await UserService.instance.getUserType(userEmail);
+            //final userId = await UserService.instance.getUserId(userEmail);
+            //bool isDoctor = userType == AppConstants.doctor;
+            //SettingsService.updateSettings(isDoctor: isDoctor, userId: userId);
             if (mounted) {
-              showMessage(context, "Login successful!", Colors.green);
+              _showError("Login successful!");
               GoRouter.of(context).replace(UserDetailsScreen.path);
             }
           }
         }
       } on AuthException catch (e) {
-        log("AuthException: ${e.message}");
-        String errorMessage = e.message.toLowerCase();
-        if (errorMessage.contains("Invalid login credentials")) {
-          _showError("Incorrect email or password.");
-        } else if (errorMessage.contains("User not found")) {
-          _showError("No account found with this email.");
-        } else if (errorMessage.contains("User is not confirmed")) {
-          _showError("Your account is not confirmed. Please check your email.");
-        } else {
-          _showError("Authentication error: $errorMessage");
-        }
-      } on SocketException {
-        _showError("No internet connection. Please check your network.");
+        debugPrint("AuthException: ${e.message}");
+        _handleAuthError(e.message);
       } catch (e) {
         _showError("Login failed, an error occurred: ${e.toString()}");
       } finally {
@@ -131,7 +114,23 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
     }
   }
 
+  void _handleAuthError(String errorMessage) {
+    if (errorMessage.contains("Invalid login credentials")) {
+      _showError("Incorrect email or password.");
+    } else if (errorMessage.contains("User not found")) {
+      _showError("No account found with this email.");
+    } else if (errorMessage.contains("User is not confirmed")) {
+      _showError("Your account is not confirmed. Please check your email.");
+    } else if (errorMessage.contains("SocketException") ||
+        errorMessage.toLowerCase().contains("connection") ||
+        errorMessage.toLowerCase().contains("network error")) {
+      _showError("No internet connection. Please check your network.");
+    } else {
+      _showError("Authentication error: $errorMessage");
+    }
+  }
+
   void _showError(String message) {
-    showMessage(context, message, Colors.red);
+    showMessage(context, message, ColorsManager.mainAppColor);
   }
 }

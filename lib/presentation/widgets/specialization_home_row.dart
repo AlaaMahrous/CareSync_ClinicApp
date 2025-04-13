@@ -2,6 +2,7 @@ import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/presentation/widgets/specialization_item.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpecializationHomeRow extends StatelessWidget {
   SpecializationHomeRow({super.key});
@@ -27,10 +28,10 @@ class SpecializationHomeRow extends StatelessWidget {
 
         final specializations = snapshot.data!;
         return SizedBox(
-          height: 120,
+          height: 120.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
             itemCount: specializations.length,
             itemBuilder: (context, index) {
               final spec = specializations[index];

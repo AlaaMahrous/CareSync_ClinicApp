@@ -3,6 +3,7 @@ import 'package:clinic/core/services/supabase/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/screens/auth/sign_up_screen.dart';
+import 'package:clinic/presentation/screens/doctor_details_screen.dart';
 import 'package:clinic/presentation/screens/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/onboarding_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
@@ -29,6 +30,10 @@ class AppRouter {
       GoRoute(
         path: UserDetailsScreen.path,
         builder: (context, state) => const UserDetailsScreen(),
+      ),
+      GoRoute(
+        path: DoctorDetailsScreen.path,
+        builder: (context, state) => const DoctorDetailsScreen(),
       ),
       GoRoute(
         path: ClinicApp.path,

@@ -2,8 +2,10 @@ class AppConstants {
   static const String projectURL = 'https://sesjzerlawpywdufplrw.supabase.co';
   static const String aPIKeyAnon =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlc2p6ZXJsYXdweXdkdWZwbHJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDExMDgyNTgsImV4cCI6MjA1NjY4NDI1OH0.doP5RPAicAhB8lCflfWqupp4MQdYeg_QErCX3RDE_rQ';
-  static const String doctor = 'doctor';
-  static const String patient = 'patient';
+  static const String doctor = 'Doctor';
+  static const String patient = 'Patient';
+  static const String male = 'Male';
+  static const String female = 'Female';
 
   // -- usersTable --
   static const String usersTable = 'Users';
