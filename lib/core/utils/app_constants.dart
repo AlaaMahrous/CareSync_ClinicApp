@@ -17,7 +17,6 @@ class AppConstants {
   static const String userUserType = 'user_type';
   static const String userBirthDate = 'birth_date';
   static const String userEmail = 'email';
-  static const String userImageUrl = 'image_url';
 
   // -- doctorsTable --
   static const String doctorsTable = 'Doctors';
@@ -28,6 +27,8 @@ class AppConstants {
   static const String doctorExperience = 'experience';
   static const String doctorClinicAddress = 'clinic_address';
   static const String doctorConsultationFee = 'consultation_fee';
+  static const String doctorImageUrl = 'image_url';
+  static const String doctorInfo = 'info';
 
   // -- specializationsTable --
   static const String specializationsTable = 'Specializations';
