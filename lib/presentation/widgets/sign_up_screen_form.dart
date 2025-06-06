@@ -1,6 +1,6 @@
-import 'package:clinic/core/services/supabase/sup_auth_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
+import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:clinic/presentation/widgets/sign_up_screen_body.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class _SignUpScreenFormState extends State<SignUpScreenForm> {
       if (response.session != null) {
         _showError("Sign up successful!");
         if (mounted) {
-          GoRouter.of(context).replace(UserDetailsScreen.path);
+          GoRouter.of(context).go(UserDetailsScreen.path);
         }
       } else {
         _showError("Sign up failed. Please try again.");

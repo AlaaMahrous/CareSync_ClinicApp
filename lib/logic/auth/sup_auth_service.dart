@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -42,6 +44,8 @@ class SupAuthService {
   }
 
   String? getCurrentUserEmail() {
+    log("${_supabase.auth.currentSession}");
+    log("${_supabase.auth.currentUser}");
     final Session? session = _supabase.auth.currentSession;
     final user = session?.user;
     return user?.email;

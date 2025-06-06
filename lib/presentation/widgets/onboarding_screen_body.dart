@@ -58,41 +58,45 @@ class _OnboardingScreenState extends State<OnboardingScreenBody> {
                 ),
               ),
               SizedBox(height: 60.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SmoothPageIndicator(
-                    controller: _pageController,
-                    count: ListsManagar.onBoardingImages.length,
-                    effect: ExpandingDotsEffect(
-                      dotHeight: 8.h,
-                      dotWidth: 8.w,
-                      activeDotColor: ColorsManager.mainAppColor,
-                      dotColor: Colors.grey.shade400,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SmoothPageIndicator(
+                      controller: _pageController,
+                      count: ListsManagar.onBoardingImages.length,
+                      effect: ExpandingDotsEffect(
+                        dotHeight: 8.h,
+                        dotWidth: 8.w,
+                        activeDotColor: ColorsManager.mainAppColor,
+                        dotColor: Colors.grey.shade400,
+                      ),
                     ),
-                  ),
-                  if (currentIndex != ListsManagar.onBoardingImages.length - 1)
-                    CustomButton(
-                      onTap: () {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                      text: 'Next',
-                      width: 150.w,
-                      r: 60.r,
-                    )
-                  else
-                    CustomButton(
-                      onTap: () {
-                        GoRouter.of(context).go(LoginScreen.path);
-                      },
-                      text: 'Get Started',
-                      width: 150.w,
-                      r: 60.r,
-                    ),
-                ],
+                    if (currentIndex !=
+                        ListsManagar.onBoardingImages.length - 1)
+                      CustomButton(
+                        onTap: () {
+                          _pageController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        text: 'Next',
+                        width: 150.w,
+                        r: 60.r,
+                      )
+                    else
+                      CustomButton(
+                        onTap: () {
+                          GoRouter.of(context).go(LoginScreen.path);
+                        },
+                        text: 'Get Started',
+                        width: 150.w,
+                        r: 60.r,
+                      ),
+                  ],
+                ),
               ),
             ],
           ),

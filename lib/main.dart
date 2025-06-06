@@ -1,6 +1,6 @@
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
-import 'package:clinic/core/services/supabase/sup_auth_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
+import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/my_app.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

@@ -1,5 +1,5 @@
-import 'package:clinic/core/services/supabase/sup_auth_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
+import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserService {
@@ -64,6 +64,7 @@ class UserService {
             .select(AppConstants.userUserType)
             .eq(AppConstants.userEmail, userEmail)
             .maybeSingle();
+
     return userType?[AppConstants.userUserType];
   }
 }

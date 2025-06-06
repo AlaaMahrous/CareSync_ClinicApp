@@ -1,11 +1,12 @@
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
-import 'package:clinic/core/services/supabase/sup_auth_service.dart';
+import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/screens/auth/sign_up_screen.dart';
 import 'package:clinic/presentation/screens/doctor_details_screen.dart';
 import 'package:clinic/presentation/screens/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/onboarding_screen.dart';
+import 'package:clinic/presentation/screens/patient_home_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,6 +46,10 @@ class AppRouter {
       GoRoute(
         path: DoctorHomeScreen.path,
         builder: (context, state) => const DoctorHomeScreen(),
+      ),
+      GoRoute(
+        path: DoctorHomeScreen.path,
+        builder: (context, state) => const PatientHomeScreen(),
       ),
     ],
     redirect: (context, state) => _checkSession(),

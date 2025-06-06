@@ -29,6 +29,7 @@ class DropFeild extends StatelessWidget {
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200.h,
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(8.r)),
             ),
           ),

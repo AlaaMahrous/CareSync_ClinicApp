@@ -23,7 +23,7 @@ class OnboardingPageView extends StatelessWidget {
                 (context, error, stackTrace) => const Icon(Icons.error),
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 35.h),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(

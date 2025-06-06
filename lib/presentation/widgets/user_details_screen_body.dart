@@ -4,11 +4,14 @@ import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
+import 'package:clinic/presentation/screens/doctor_details_screen.dart';
+import 'package:clinic/presentation/screens/patient_home_screen.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -119,7 +122,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
                       },
                     ),
                     SizedBox(height: 5.h),
-                    CustomButton(text: 'Start Now', onTap: addUser),
+                    CustomButton(
+                      text:
+                          (selectedUserType == AppConstants.doctor)
+                              ? 'Start as Doctor'
+                              : 'Start Now',
+                      onTap: addUser,
+                    ),
                   ],
                 ),
               ),
@@ -148,6 +157,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
           userGender: selectedUserGender!,
           userRole: selectedUserType!,
         );
+        if (selectedUserType == AppConstants.doctor && mounted) {
+          GoRouter.of(context).go(DoctorDetailsScreen.path);
+        } else {
+          if (mounted) {
+            GoRouter.of(context).go(PatientHomeScreen.path);
+          }
+        }
         _showError(
           "Your profile has been successfully completed! Welcome aboard!",
         );
