@@ -17,6 +17,7 @@ class AppConstants {
   static const String userUserType = 'user_type';
   static const String userBirthDate = 'birth_date';
   static const String userEmail = 'email';
+  static const String userImageUrl = 'image_url';
 
   // -- doctorsTable --
   static const String doctorsTable = 'Doctors';
@@ -53,10 +54,4 @@ class AppConstants {
   static const String appointmentDoctorId = 'doctor_id';
   static const String appointmentSlotId = 'slot_id';
   static const String appointmentStatus = 'status';
-
-  // -- imagesTable --
-  static const String imagesTable = 'Images';
-  static const String imageId = 'id';
-  static const String imageCreatedAt = 'created_at';
-  static const String imageUserId = 'user_id';
 }

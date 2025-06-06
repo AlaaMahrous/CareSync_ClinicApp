@@ -17,7 +17,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserDetailsScreenBody extends StatefulWidget {
   const UserDetailsScreenBody({super.key});
-  static final String path = '/UserDetailsScreen';
 
   @override
   State<UserDetailsScreenBody> createState() => _UserDetailsScreenState();
