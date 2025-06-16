@@ -1,9 +1,11 @@
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
+import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/screens/doctor_details_screen.dart';
 import 'package:clinic/presentation/screens/patient_home_screen.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
@@ -156,6 +158,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
           userGender: selectedUserGender!,
           userRole: selectedUserType!,
         );
+        final email = SupAuthService.instance.getCurrentUserEmail();
+        final userId = await UserService.instance.getUserId(email!);
+        SettingsService.updateSettings(userId: userId.toString());
         if (selectedUserType == AppConstants.doctor && mounted) {
           GoRouter.of(context).go(DoctorDetailsScreen.path);
         } else {

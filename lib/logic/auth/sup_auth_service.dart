@@ -50,4 +50,10 @@ class SupAuthService {
     final user = session?.user;
     return user?.email;
   }
+
+  String? getCurrentUserId() {
+    final Session? session = _supabase.auth.currentSession;
+    final user = session?.user;
+    return user?.id;
+  }
 }

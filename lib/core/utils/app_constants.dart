@@ -29,6 +29,7 @@ class AppConstants {
   static const String doctorConsultationFee = 'consultation_fee';
   static const String doctorImageUrl = 'image_url';
   static const String doctorInfo = 'info';
+  static const String doctorPhoneNumber = 'phone_number';
 
   // -- specializationsTable --
   static const String specializationsTable = 'Specializations';

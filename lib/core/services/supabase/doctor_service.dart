@@ -17,6 +17,7 @@ class DoctorService {
     required double consultationFee,
     String? imageUrl,
     String? info,
+    String? phone,
   }) async {
     final String userId = await UserService().getUserId(email);
     await _client.from(AppConstants.doctorsTable).insert({
@@ -27,6 +28,7 @@ class DoctorService {
       AppConstants.doctorConsultationFee: consultationFee,
       AppConstants.doctorImageUrl: imageUrl,
       AppConstants.doctorInfo: info,
+      AppConstants.doctorPhoneNumber: phone,
     });
   }
 
@@ -37,6 +39,7 @@ class DoctorService {
     double? consultationFee,
     String? imageUrl,
     String? info,
+    String? phone,
   }) async {
     final String userId = await UserService().getUserId(email);
     Map<String, dynamic> updatedData = {};
@@ -54,6 +57,7 @@ class DoctorService {
     }
     if (imageUrl != null) updatedData[AppConstants.doctorImageUrl] = imageUrl;
     if (info != null) updatedData[AppConstants.doctorInfo] = info;
+    if (phone != null) updatedData[AppConstants.doctorPhoneNumber] = phone;
 
     final response = await _client
         .from(AppConstants.doctorsTable)

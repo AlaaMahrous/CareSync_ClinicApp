@@ -52,7 +52,7 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
             return null;
           },
           passwordOnSaved: (value) {
-            password = value;
+            password = value!;
           },
           passwordValidator: (value) {
             if (value == null || value.isEmpty) {
@@ -90,10 +90,13 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
         if (response.session != null) {
           String userEmail = SupAuthService.instance.getCurrentUserEmail()!;
           if (userEmail.isNotEmpty) {
-            //final userType = await UserService.instance.getUserType(userEmail);
-            //final userId = await UserService.instance.getUserId(userEmail);
-            //bool isDoctor = userType == AppConstants.doctor;
-            //SettingsService.updateSettings(isDoctor: isDoctor, userId: userId);
+            final userType = await UserService.instance.getUserType(userEmail);
+            final userId = UserService.instance.getUserId(userEmail).toString();
+            bool isDoctor;
+            (userType == AppConstants.doctor)
+                ? isDoctor = true
+                : isDoctor = false;
+            SettingsService.updateSettings(isDoctor: isDoctor, userId: userId);
             if (mounted) {
               _showError("Login successful!");
               GoRouter.of(context).go(DoctorDetailsScreen.path);

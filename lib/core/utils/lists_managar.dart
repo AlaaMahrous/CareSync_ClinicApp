@@ -10,4 +10,18 @@ class ListsManagar {
     'Find a lot of specialist doctors in one place',
     'Get connect our Online Consultation',
   ];
+
+  static const List<String> specializations = [
+    'Cardiology',
+    'Dermatology',
+    'Neurology',
+    'Orthopedics',
+    'Pediatrics',
+    'Ophthalmology',
+    'Gynecology',
+    'Oncology',
+    'Psychiatry',
+    'Endocrinology',
+    'Dentistry',
+  ];
 }
