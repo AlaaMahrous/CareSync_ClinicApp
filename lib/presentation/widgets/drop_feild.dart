@@ -36,12 +36,15 @@ class DropFeild extends StatelessWidget {
           isDense: true,
           isExpanded: true,
           value: selectedItem,
-          hint: Text(hint),
+          hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
           items:
               items.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    value,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
                 );
               }).toList(),
           onChanged: onChanged,

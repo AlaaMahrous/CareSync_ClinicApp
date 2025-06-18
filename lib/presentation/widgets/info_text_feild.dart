@@ -15,6 +15,7 @@ class InfoTextFeild extends StatelessWidget {
     this.onSaved,
     required this.validator,
     this.controller,
+    this.keyboardType,
   });
   final Widget? prefixIcon;
   final String hintText;
@@ -23,6 +24,7 @@ class InfoTextFeild extends StatelessWidget {
   final void Function(String?)? onSaved;
   final String? Function(String?) validator;
   final TextEditingController? controller;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class InfoTextFeild extends StatelessWidget {
       obscureText: obscureText,
       onSaved: onSaved,
       validator: validator,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20.w),
         prefixIcon: prefixIcon,

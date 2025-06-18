@@ -79,10 +79,8 @@ class _SignUpScreenFormState extends State<SignUpScreenForm> {
       setState(() => _autovalidateMode = AutovalidateMode.always);
       return;
     }
-
     _formKey.currentState!.save();
     setState(() => _isLoading = true);
-
     try {
       final response = await SupAuthService.instance.signUpWithEmail(
         email!,

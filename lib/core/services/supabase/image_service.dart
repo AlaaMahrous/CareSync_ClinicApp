@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
@@ -16,10 +15,11 @@ class ImageService {
     return image != null ? File(image.path) : null;
   }
 
-  Future<void> uploadAndSaveImage(File imageFile) async {
+  Future<String?> uploadAndSaveImage(File imageFile) async {
     try {
       final userId = SupAuthService.instance.getCurrentUserId();
       final path = 'uploads/$userId';
+
       await Supabase.instance.client.storage
           .from('images')
           .upload(
@@ -32,9 +32,11 @@ class ImageService {
           .from('images')
           .getPublicUrl(path);
 
-      await DoctorService.instance.updateUserData(imageUrl: imageUrl);
+      return imageUrl;
     } catch (e) {
       log('Error uploading or saving image: $e');
+      return null;
     }
   }
 }
+//await DoctorService.instance.updateUserData(imageUrl: imageUrl);

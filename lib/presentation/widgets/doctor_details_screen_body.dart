@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
@@ -19,13 +21,16 @@ class DoctorDetailsScreenBody extends StatefulWidget {
 }
 
 class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  bool _isLoading = false;
   String? firstName;
   String? selectedSpecialization;
   int? selectedSpecIndex;
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
-      inAsyncCall: false,
+      inAsyncCall: _isLoading,
       progressIndicator: const CircularProgressIndicator(
         color: ColorsManager.mainAppColor,
       ),
@@ -34,6 +39,8 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
         body: SingleChildScrollView(
           child: SafeArea(
             child: Form(
+              key: _formKey,
+              autovalidateMode: _autovalidateMode,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 20.h),
                 child: Column(
@@ -41,8 +48,8 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                   children: [
                     Row(
                       children: [
-                        Image.asset(ImageManager.logoPath, height: 25.h),
-                        SizedBox(width: 5.w),
+                        Image.asset(ImageManager.logoPath, height: 26.h),
+                        SizedBox(width: 10.w),
                         Text(
                           'CareSync',
                           style: TextStyleManager.loginTitle.copyWith(
@@ -51,27 +58,32 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                         ),
                       ],
                     ),
-                    const ProfileAvatar(),
-                    SizedBox(height: 5.h),
+                    SizedBox(width: 5.w),
+                    ProfileAvatar(
+                      backgroundImage: const AssetImage(
+                        "assets/images/profile.jpeg",
+                      ),
+                      onTap: () {},
+                    ),
                     Text(
                       'Complete your profile to get started!',
                       style: TextStyleManager.loginInfo,
                     ),
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 0.h),
                     InfoTextFeild(
-                      hintText: 'Enter your clinic address',
+                      hintText: 'Write a short bio about yourself',
                       onSaved: (value) {
                         firstName = value;
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Password is required';
+                          return 'Clinic address is required';
                         }
                         return null;
                       },
                     ),
                     DropFeild(
-                      hint: 'Select Your role',
+                      hint: 'Select Your specialization',
                       items: ListsManagar.specializations,
                       selectedItem: selectedSpecialization,
                       onChanged: (newValue) {
@@ -79,11 +91,63 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                           selectedSpecialization = newValue;
                           selectedSpecIndex = ListsManagar.specializations
                               .indexOf(newValue!);
-                          print('Selected Index: ${selectedSpecIndex! + 1}');
+                          log('Selected Index: ${selectedSpecIndex! + 1}');
                         });
                       },
                     ),
-                    CustomButton(text: 'Start', onTap: () {}),
+                    InfoTextFeild(
+                      hintText: 'Enter your clinic address',
+                      onSaved: (value) {
+                        firstName = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Clinic address is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    InfoTextFeild(
+                      keyboardType: TextInputType.phone,
+                      hintText: 'Enter your phone number',
+                      onSaved: (value) {
+                        firstName = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Phone number is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    InfoTextFeild(
+                      keyboardType: TextInputType.number,
+                      hintText: 'Enter years of experience',
+                      onSaved: (value) {
+                        firstName = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Years of experience is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    InfoTextFeild(
+                      keyboardType: TextInputType.number,
+                      hintText: 'Enter consultation fee',
+                      onSaved: (value) {
+                        firstName = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Consultation fee is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 15.h),
+                    CustomButton(text: 'Start', onTap: addDoctorData),
                   ],
                 ),
               ),
@@ -92,5 +156,15 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
         ),
       ),
     );
+  }
+
+  void addDoctorData() {
+    if (!_formKey.currentState!.validate()) {
+      setState(() => _autovalidateMode = AutovalidateMode.always);
+      return;
+    }
+
+    _formKey.currentState!.save();
+    setState(() => _isLoading = true);
   }
 }
