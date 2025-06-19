@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar({super.key, required this.backgroundImage, this.onTap});
-  final ImageProvider<Object>? backgroundImage;
+  const ProfileAvatar({super.key, required this.image, this.onTap});
+  final Image image;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const CircleAvatar(
-          radius: 55,
-          backgroundImage: AssetImage("assets/images/profile.jpeg"),
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(100), child: image),
         Positioned(
           bottom: 5,
           right: 5,
           child: InkWell(
-            onTap: () {},
+            onTap: onTap,
             child: Container(
               height: 25,
               decoration: BoxDecoration(

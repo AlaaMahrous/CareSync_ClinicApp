@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:clinic/core/services/supabase/image_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
@@ -24,6 +26,7 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   bool _isLoading = false;
+  File? imageFile;
   String? firstName;
   String? selectedSpecialization;
   int? selectedSpecIndex;
@@ -60,10 +63,23 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                     ),
                     SizedBox(width: 5.w),
                     ProfileAvatar(
-                      backgroundImage: const AssetImage(
-                        "assets/images/profile.jpeg",
-                      ),
-                      onTap: () {},
+                      image:
+                          imageFile != null
+                              ? Image.file(
+                                imageFile!,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              )
+                              : Image.asset(
+                                'assets/images/profile.jpeg',
+                                height: 100,
+                                width: 100,
+                              ),
+                      onTap: () async {
+                        imageFile = await ImageService.instance.pickImage();
+                        setState(() {});
+                      },
                     ),
                     Text(
                       'Complete your profile to get started!',
