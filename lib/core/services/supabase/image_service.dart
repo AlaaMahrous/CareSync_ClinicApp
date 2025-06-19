@@ -18,7 +18,7 @@ class ImageService {
   Future<String?> uploadAndSaveImage(File imageFile) async {
     try {
       final userId = SupAuthService.instance.getCurrentUserId();
-      final path = 'uploads/$userId';
+      final path = 'profile/$userId';
 
       await Supabase.instance.client.storage
           .from('images')

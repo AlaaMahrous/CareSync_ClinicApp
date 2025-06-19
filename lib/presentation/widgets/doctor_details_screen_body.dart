@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -5,6 +7,7 @@ import 'package:clinic/core/services/supabase/image_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
+import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
@@ -27,6 +30,7 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   bool _isLoading = false;
   File? imageFile;
+  String? imageUrl;
   String? firstName;
   String? selectedSpecialization;
   int? selectedSpecIndex;
@@ -79,6 +83,7 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                       onTap: () async {
                         imageFile = await ImageService.instance.pickImage();
                         setState(() {});
+                        await uploadImage(context);
                       },
                     ),
                     Text(
@@ -172,6 +177,21 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
         ),
       ),
     );
+  }
+
+  Future<void> uploadImage(BuildContext context) async {
+    if (imageFile != null) {
+      try {
+        imageUrl = await ImageService.instance.uploadAndSaveImage(imageFile!);
+        showMessage(
+          context,
+          'The image uploaded successfully',
+          ColorsManager.mainAppColor,
+        );
+      } on Exception catch (e) {
+        log(e.toString());
+      }
+    }
   }
 
   void addDoctorData() {
