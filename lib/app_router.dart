@@ -48,7 +48,7 @@ class AppRouter {
         builder: (context, state) => const DoctorHomeScreen(),
       ),
       GoRoute(
-        path: DoctorHomeScreen.path,
+        path: PatientHomeScreen.path,
         builder: (context, state) => const PatientHomeScreen(),
       ),
     ],

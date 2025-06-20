@@ -3,17 +3,20 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:clinic/core/services/supabase/image_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
+import 'package:clinic/presentation/screens/doctor_home_screen.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
 import 'package:clinic/presentation/widgets/profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,7 +34,11 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
   bool _isLoading = false;
   File? imageFile;
   String? imageUrl;
-  String? firstName;
+  String? bio;
+  String? adress;
+  String? number;
+  double? fee;
+  double? years;
   String? selectedSpecialization;
   int? selectedSpecIndex;
   @override
@@ -83,7 +90,6 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                       onTap: () async {
                         imageFile = await ImageService.instance.pickImage();
                         setState(() {});
-                        await uploadImage(context);
                       },
                     ),
                     Text(
@@ -92,9 +98,10 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                     ),
                     SizedBox(height: 0.h),
                     InfoTextFeild(
+                      maxLength: 200,
                       hintText: 'Write a short bio about yourself',
                       onSaved: (value) {
-                        firstName = value;
+                        bio = value;
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -110,16 +117,16 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                       onChanged: (newValue) {
                         setState(() {
                           selectedSpecialization = newValue;
-                          selectedSpecIndex = ListsManagar.specializations
-                              .indexOf(newValue!);
-                          log('Selected Index: ${selectedSpecIndex! + 1}');
+                          selectedSpecIndex =
+                              ListsManagar.specializations.indexOf(newValue!) +
+                              1;
                         });
                       },
                     ),
                     InfoTextFeild(
                       hintText: 'Enter your clinic address',
                       onSaved: (value) {
-                        firstName = value;
+                        adress = value;
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -132,7 +139,7 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                       keyboardType: TextInputType.phone,
                       hintText: 'Enter your phone number',
                       onSaved: (value) {
-                        firstName = value;
+                        number = value.toString();
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -145,24 +152,30 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
                       keyboardType: TextInputType.number,
                       hintText: 'Enter years of experience',
                       onSaved: (value) {
-                        firstName = value;
+                        years = double.tryParse(value ?? '');
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Years of experience is required';
+                        }
+                        if (double.tryParse(value) == null) {
+                          return 'Please enter a valid number';
                         }
                         return null;
                       },
                     ),
                     InfoTextFeild(
                       keyboardType: TextInputType.number,
-                      hintText: 'Enter consultation fee',
+                      hintText: 'Enter consultation fee in dollars',
                       onSaved: (value) {
-                        firstName = value;
+                        fee = double.tryParse(value ?? '');
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Consultation fee is required';
+                          return 'Years of experience is required';
+                        }
+                        if (double.tryParse(value) == null) {
+                          return 'Please enter a valid number';
                         }
                         return null;
                       },
@@ -179,28 +192,63 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
     );
   }
 
-  Future<void> uploadImage(BuildContext context) async {
-    if (imageFile != null) {
-      try {
-        imageUrl = await ImageService.instance.uploadAndSaveImage(imageFile!);
-        showMessage(
-          context,
-          'The image uploaded successfully',
-          ColorsManager.mainAppColor,
-        );
-      } on Exception catch (e) {
-        log(e.toString());
-      }
-    }
-  }
-
-  void addDoctorData() {
+  void addDoctorData() async {
     if (!_formKey.currentState!.validate()) {
       setState(() => _autovalidateMode = AutovalidateMode.always);
       return;
     }
 
-    _formKey.currentState!.save();
-    setState(() => _isLoading = true);
+    if (selectedSpecIndex == null) {
+      _showMessage('Please select your specialization.');
+      return;
+    }
+
+    try {
+      _formKey.currentState!.save();
+      setState(() => _isLoading = true);
+
+      await uploadImage();
+
+      if (years == null || fee == null) {
+        _showMessage('Invalid input for years of experience or fee.');
+        setState(() => _isLoading = false);
+        return;
+      }
+
+      await DoctorService.instance.insertUserData(
+        specialization: selectedSpecIndex!,
+        experienceYear: years!,
+        consultationFee: fee!,
+        clinicAddress: adress,
+        imageUrl: imageUrl,
+        info: bio,
+        phone: number,
+      );
+
+      _showMessage('Your profile has been successfully created.');
+      if (mounted) {
+        GoRouter.of(context).go(DoctorHomeScreen.path);
+      }
+    } catch (e, stack) {
+      log('Error in addDoctorData: $e\n$stack');
+      _showMessage('Something went wrong. Please try again.');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> uploadImage() async {
+    if (imageFile != null) {
+      try {
+        imageUrl = await ImageService.instance.uploadAndSaveImage(imageFile!);
+      } catch (e, stack) {
+        log('Image upload failed: $e\n$stack');
+        _showMessage('Image upload failed. Please try again.');
+      }
+    }
+  }
+
+  void _showMessage(String message) {
+    showMessage(context, message, ColorsManager.mainAppColor);
   }
 }

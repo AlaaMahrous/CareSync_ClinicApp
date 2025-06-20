@@ -11,7 +11,7 @@ class DoctorService {
   final String email = SupAuthService.instance.getCurrentUserEmail()!;
 
   Future<Map<String, dynamic>?> getUserData() async {
-    final String userId = await UserService().getUserId(email);
+    final int userId = await UserService().getUserId(email);
     final response =
         await _client
             .from(AppConstants.doctorsTable)
@@ -28,14 +28,14 @@ class DoctorService {
 
   Future<void> insertUserData({
     required int specialization,
-    required int experienceYear,
+    required double experienceYear,
     String? clinicAddress,
     required double consultationFee,
     String? imageUrl,
     String? info,
     String? phone,
   }) async {
-    final String userId = await UserService().getUserId(email);
+    final int userId = await UserService().getUserId(email);
     await _client.from(AppConstants.doctorsTable).insert({
       AppConstants.doctorUserId: userId,
       AppConstants.doctorSpecialization: specialization,
@@ -50,14 +50,14 @@ class DoctorService {
 
   Future<PostgrestResponse> updateUserData({
     int? specialization,
-    int? experienceYear,
+    double? experienceYear,
     String? clinicAddress,
     double? consultationFee,
     String? imageUrl,
     String? info,
     String? phone,
   }) async {
-    final String userId = await UserService().getUserId(email);
+    final int userId = await UserService().getUserId(email);
     Map<String, dynamic> updatedData = {};
     if (specialization != null) {
       updatedData[AppConstants.doctorSpecialization] = specialization;

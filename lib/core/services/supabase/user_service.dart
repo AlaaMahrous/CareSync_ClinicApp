@@ -47,7 +47,7 @@ class UserService {
     return response;
   }
 
-  Future<String> getUserId(String userEmail) async {
+  Future<int> getUserId(String userEmail) async {
     final userId =
         await _client
             .from(AppConstants.usersTable)

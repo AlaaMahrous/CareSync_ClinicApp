@@ -16,6 +16,7 @@ class InfoTextFeild extends StatelessWidget {
     required this.validator,
     this.controller,
     this.keyboardType,
+    this.maxLength,
   });
   final Widget? prefixIcon;
   final String hintText;
@@ -25,10 +26,12 @@ class InfoTextFeild extends StatelessWidget {
   final String? Function(String?) validator;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxLength,
       controller: controller,
       obscureText: obscureText,
       onSaved: onSaved,
