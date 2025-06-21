@@ -62,7 +62,7 @@ class AppRouter {
     if (!SupAuthService.instance.isLoggedIn) {
       return LoginScreen.path;
     }
-    return settings.isDoctor ? DoctorHomeScreen.path : ClinicApp.path;
+    return ClinicApp.path;
   }
 
   static String? _checkSession() {

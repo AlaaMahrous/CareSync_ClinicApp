@@ -160,7 +160,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
         );
         final email = SupAuthService.instance.getCurrentUserEmail();
         final userId = await UserService.instance.getUserId(email!);
-        SettingsService.updateSettings(userId: userId.toString());
+        final userType = await UserService.instance.getUserType(email);
+        bool isDoctor;
+        (userType == AppConstants.doctor) ? isDoctor = true : isDoctor = false;
+        SettingsService.updateSettings(
+          userId: userId.toString(),
+          isDoctor: isDoctor,
+        );
         if (selectedUserType == AppConstants.doctor && mounted) {
           GoRouter.of(context).go(DoctorDetailsScreen.path);
         } else {

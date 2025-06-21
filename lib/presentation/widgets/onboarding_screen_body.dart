@@ -1,3 +1,4 @@
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
@@ -89,6 +90,7 @@ class _OnboardingScreenState extends State<OnboardingScreenBody> {
                     else
                       CustomButton(
                         onTap: () {
+                          SettingsService.updateSettings(isFirstTime: false);
                           GoRouter.of(context).go(LoginScreen.path);
                         },
                         text: 'Get Started',
