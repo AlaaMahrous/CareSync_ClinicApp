@@ -65,4 +65,6 @@ class AppConstants {
   static const String doctorRatingPatientId = 'patient_id';
   static const String doctorRatingValue = 'rating';
   static const String doctorRatingComment = 'comment';
+
+  static const String doctorAverageRatings = 'Doctor_Average_Ratings';
 }

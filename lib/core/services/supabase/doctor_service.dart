@@ -83,21 +83,26 @@ class DoctorService {
     return response;
   }
 
-  Future<List<DoctorCardModel>> getDoctorsWithRating() async {
-    final response = await _client.from(AppConstants.doctorsTable).select('''
-    *,
-    Users(
-      ${AppConstants.userFirstName},
-      ${AppConstants.userLastName}
-    ),
-    Specializations(
-      ${AppConstants.specializationSpecialization}
-    ),
-    Doctor_Average_Ratings(
-      ${AppConstants.doctorRatingValue}
-    )
-  ''');
-
+  Future<List<DoctorCardModel>> getDoctorsWithRatingCard({
+    required int from,
+    required int to,
+  }) async {
+    final response = await _client
+        .from(AppConstants.doctorsTable)
+        .select('''
+        *,
+        Users(
+          ${AppConstants.userFirstName},
+          ${AppConstants.userLastName}
+        ),
+        Specializations(
+          ${AppConstants.specializationSpecialization}
+        ),
+        Doctor_Average_Ratings(
+          ${AppConstants.doctorRatingValue}
+        )
+      ''')
+        .range(from, to);
     return (response as List)
         .map((json) => DoctorCardModel.fromJson(json))
         .toList();
