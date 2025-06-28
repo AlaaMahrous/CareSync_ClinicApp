@@ -56,4 +56,13 @@ class AppConstants {
   static const String appointmentDoctorId = 'doctor_id';
   static const String appointmentSlotId = 'slot_id';
   static const String appointmentStatus = 'status';
+
+  // -- doctorRatingsTable --
+  static const String doctorRatingsTable = 'Doctors_Ratings';
+  static const String doctorRatingId = 'id';
+  static const String doctorRatingCreatedAt = 'created_at';
+  static const String doctorRatingDoctorId = 'doctor_id';
+  static const String doctorRatingPatientId = 'patient_id';
+  static const String doctorRatingValue = 'rating';
+  static const String doctorRatingComment = 'comment';
 }

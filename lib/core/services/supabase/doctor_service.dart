@@ -1,3 +1,4 @@
+import 'package:clinic/core/models/doctor_card_model.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
@@ -80,5 +81,25 @@ class DoctorService {
         .update(updatedData)
         .eq(AppConstants.doctorUserId, userId);
     return response;
+  }
+
+  Future<List<DoctorCardModel>> getDoctorsWithRating() async {
+    final response = await _client.from(AppConstants.doctorsTable).select('''
+    *,
+    Users(
+      ${AppConstants.userFirstName},
+      ${AppConstants.userLastName}
+    ),
+    Specializations(
+      ${AppConstants.specializationSpecialization}
+    ),
+    Doctor_Average_Ratings(
+      ${AppConstants.doctorRatingValue}
+    )
+  ''');
+
+    return (response as List)
+        .map((json) => DoctorCardModel.fromJson(json))
+        .toList();
   }
 }
