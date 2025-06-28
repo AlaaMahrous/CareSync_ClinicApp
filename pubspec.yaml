@@ -12,6 +12,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_native_splash: ^2.4.5
   flutter_screenutil: ^5.9.3
   go_router: ^14.8.1
