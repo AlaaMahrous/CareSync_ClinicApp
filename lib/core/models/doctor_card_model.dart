@@ -1,40 +1,28 @@
-import 'package:clinic/core/utils/app_constants.dart';
-
 class DoctorCardModel {
   final int id;
-  final String fullName;
+  final String name;
+  final String? imageUrl;
   final String specialization;
   final double consultationFee;
-  final String imageUrl;
   final double averageRating;
 
   DoctorCardModel({
     required this.id,
-    required this.fullName,
+    required this.name,
+    this.imageUrl,
     required this.specialization,
     required this.consultationFee,
-    required this.imageUrl,
     required this.averageRating,
   });
 
   factory DoctorCardModel.fromJson(Map<String, dynamic> json) {
-    final user = json[AppConstants.usersTable] ?? {};
-    final spec = json[AppConstants.specializationsTable] ?? {};
-    final rating = json[AppConstants.doctorAverageRatings];
-
     return DoctorCardModel(
-      id: json[AppConstants.doctorId],
-      fullName:
-          '${user[AppConstants.userFirstName] ?? ''} ${user[AppConstants.userLastName] ?? ''}',
-      specialization:
-          spec[AppConstants.specializationSpecialization] ?? 'Unknown',
-      consultationFee:
-          (json[AppConstants.doctorConsultationFee] as num).toDouble(),
-      imageUrl: json[AppConstants.doctorImageUrl] ?? '',
-      averageRating:
-          rating != null
-              ? (rating[AppConstants.doctorRatingValue] as num).toDouble()
-              : 0.0,
+      id: (json['id'] as num).toInt(),
+      name: json['doctor_name'] as String,
+      imageUrl: json['image_url'] as String?,
+      specialization: json['specialization'] as String,
+      consultationFee: (json['consultation_fee'] as num).toDouble(),
+      averageRating: (json['average_rating'] as num?)?.toDouble() ?? 0.0,
     );
   }
 }

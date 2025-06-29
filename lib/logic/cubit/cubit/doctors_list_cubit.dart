@@ -7,39 +7,15 @@ part 'doctors_list_state.dart';
 
 class DoctorsListCubit extends Cubit<DoctorsListState> {
   DoctorsListCubit() : super(DoctorsListInitial());
-  final int _pageSize = 10;
-  int _currentPage = 0;
-  bool _hasMore = true;
-  bool get hasMore => _hasMore;
 
-  List<DoctorCardModel> _allDoctors = [];
-  List<DoctorCardModel> get doctors => _allDoctors;
-
-  Future<void> fetchDoctors({bool isRefresh = false}) async {
-    if (state is DoctorListLoading) return;
-
-    if (isRefresh) {
-      _currentPage = 0;
-      _hasMore = true;
-      _allDoctors = [];
-      emit(DoctorsListInitial());
-    }
-
+  Future<void> fetchDoctors() async {
     emit(DoctorListLoading());
-
-    final from = _currentPage * _pageSize;
-    final to = from + _pageSize - 1;
-
-    final result = await DoctorService().getDoctorsWithRatingCard(
-      from: from,
-      to: to,
-    );
-
-    if (result.length < _pageSize) _hasMore = false;
-
-    _allDoctors.addAll(result);
-    _currentPage++;
-
-    emit(DoctorListLoaded(_allDoctors));
+    try {
+      List<DoctorCardModel> result =
+          await DoctorService().getDoctorsWithRatingCard();
+      emit(DoctorListLoaded(result));
+    } on Exception catch (e, stack) {
+      emit(DoctorListLoadedFaild('$e $stack'));
+    }
   }
 }

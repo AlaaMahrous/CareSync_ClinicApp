@@ -1,3 +1,5 @@
+import 'package:clinic/presentation/widgets/doctors_list_view.dart';
+import 'package:clinic/presentation/widgets/specialization_home_row.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -64,7 +66,8 @@ class DoctorHomeScreen extends StatelessWidget {
                 ),
               ),
               const Divider(height: 30, thickness: 0.09, color: Colors.grey),
-              //SpecializationHomeRow(),
+              SpecializationHomeRow(),
+              Expanded(child: const DoctorsListView()),
             ],
           ),
         ),

@@ -12,21 +12,11 @@ class DoctorsListView extends StatefulWidget {
 
 class _DoctorListViewState extends State<DoctorsListView> {
   late final DoctorsListCubit _cubit;
-  final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _cubit = DoctorsListCubit()..fetchDoctors();
-
-    _controller.addListener(() {
-      if (_controller.position.pixels >=
-              _controller.position.maxScrollExtent - 200 &&
-          _cubit.hasMore &&
-          _cubit.state is! DoctorListLoading) {
-        _cubit.fetchDoctors();
-      }
-    });
   }
 
   @override
@@ -34,37 +24,52 @@ class _DoctorListViewState extends State<DoctorsListView> {
     return BlocBuilder<DoctorsListCubit, DoctorsListState>(
       bloc: _cubit,
       builder: (context, state) {
-        if (state is DoctorsListInitial ||
-            state is DoctorListLoading && _cubit.doctors.isEmpty) {
+        if (state is DoctorsListInitial || state is DoctorListLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        final doctors = _cubit.doctors;
-
-        return ListView.builder(
-          controller: _controller,
-          itemCount: doctors.length + (_cubit.hasMore ? 1 : 0),
-          itemBuilder: (context, index) {
-            if (index >= doctors.length) {
-              return const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: CircularProgressIndicator(),
+        if (state is DoctorListLoadedFaild) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error, color: Colors.red, size: 48),
+                const SizedBox(height: 16),
+                Text(
+                  'Failed to load doctors.\n${state.error}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.red),
                 ),
-              );
-            }
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: _cubit.fetchDoctors,
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          );
+        }
 
-            final doctor = doctors[index];
-            return DoctorCardWidget(doctor: doctor); // ويدجت العرض
-          },
-        );
+        if (state is DoctorListLoaded) {
+          final doctors = state.doctors;
+          return ListView.builder(
+            itemCount: doctors.length,
+            itemBuilder: (context, index) {
+              final doctor = doctors[index];
+              return DoctorCardWidget(doctor: doctor);
+            },
+          );
+        }
+
+        // fallback (shouldn't happen, but good practice)
+        return const Center(child: Text('Unexpected state'));
       },
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _cubit.close(); // مهم جدًا عشان نغلق الـ Cubit
     super.dispose();
   }
 }
@@ -88,7 +93,8 @@ class DoctorCardWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                doctor.imageUrl,
+                doctor.imageUrl ??
+                    'https://i.pinimg.com/736x/3c/ae/07/3cae079ca0b9e55ec6bfc1b358c9b1e2.jpg',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -104,7 +110,7 @@ class DoctorCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    doctor.fullName,
+                    doctor.name,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
