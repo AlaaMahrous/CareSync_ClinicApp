@@ -9,14 +9,14 @@ class DoctorCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Colors.white,
+      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
-            // صورة الطبيب
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
@@ -31,7 +31,6 @@ class DoctorCardWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            // بيانات الطبيب
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +57,7 @@ class DoctorCardWidget extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                        '${doctor.consultationFee.toStringAsFixed(0)} EGP',
+                        '${doctor.consultationFee.toStringAsFixed(0)} USD',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: Colors.green[700],

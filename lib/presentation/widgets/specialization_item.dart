@@ -18,7 +18,7 @@ class SpecializationItem extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(50.r),
+            borderRadius: BorderRadius.circular(10.r),
             child: Image.network(
               image,
               width: 60.w,
@@ -32,7 +32,11 @@ class SpecializationItem extends StatelessWidget {
           SizedBox(height: 8.h),
           Text(
             specialization,
-            style: TextStyle(fontSize: 16.r, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 14.r,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Cairo',
+            ),
           ),
         ],
       ),

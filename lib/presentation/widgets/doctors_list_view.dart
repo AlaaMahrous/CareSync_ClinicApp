@@ -1,4 +1,3 @@
-import 'package:clinic/core/models/doctor_card_model.dart';
 import 'package:clinic/logic/cubit/cubit/doctors_list_cubit.dart';
 import 'package:clinic/presentation/widgets/doctor_card_widget.dart';
 import 'package:flutter/material.dart';
