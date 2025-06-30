@@ -19,7 +19,7 @@ class SpecializationItemShimmer extends StatelessWidget {
               child: Container(color: Colors.white, width: 60.w, height: 60.h),
             ),
             SizedBox(height: 8.h),
-            Container(width: 60.w, height: 12.h, color: Colors.white),
+            Container(width: 70.w, height: 12.h, color: Colors.white),
           ],
         ),
       ),

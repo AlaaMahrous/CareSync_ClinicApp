@@ -21,8 +21,8 @@ class SpecializationItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
             child: Image.network(
               image,
-              width: 60.w,
-              height: 60.h,
+              width: 55.w,
+              height: 55.h,
               fit: BoxFit.cover,
               errorBuilder:
                   (context, error, stackTrace) =>
@@ -33,8 +33,8 @@ class SpecializationItem extends StatelessWidget {
           Text(
             specialization,
             style: TextStyle(
-              fontSize: 14.r,
-              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+              fontSize: 13.5.r,
               fontFamily: 'Cairo',
             ),
           ),

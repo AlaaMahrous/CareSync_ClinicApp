@@ -18,8 +18,8 @@ class SpecializationHomeRow extends StatelessWidget {
             height: 120.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-              itemCount: 5, // عدد العناصر الشيمر
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              itemCount: 4,
               itemBuilder: (context, index) {
                 return const SpecializationItemShimmer();
               },
@@ -40,7 +40,7 @@ class SpecializationHomeRow extends StatelessWidget {
           height: 120.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+            padding: EdgeInsets.symmetric(vertical: 8.h),
             itemCount: specializations.length,
             itemBuilder: (context, index) {
               final spec = specializations[index];
