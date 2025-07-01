@@ -21,8 +21,8 @@ class DoctorImageCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                'https://i.pinimg.com/736x/88/ea/d3/88ead32c3ac23b142b2a979a78dcfddc.jpg',
+              child: Image.asset(
+                'assets/images/bgd.jpg',
                 width: double.infinity,
                 height: 190,
                 fit: BoxFit.cover,

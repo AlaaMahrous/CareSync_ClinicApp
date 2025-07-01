@@ -22,27 +22,30 @@ class DoctorHomeScreen extends StatelessWidget {
               Divider(height: 30, thickness: 0.09, color: Colors.grey),
               DoctorImageCard(),
               SizedBox(height: 10),
-              Text(
-                'Doctor Speciality',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Cairo',
-                ),
-              ),
+              CustomTextWidget(text: 'Doctor Speciality'),
               SpecializationHomeRow(),
-              Text(
-                'Popular Doctors',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Cairo',
-                ),
-              ),
+              CustomTextWidget(text: 'Popular Doctors'),
               Expanded(child: DoctorsListView()),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomTextWidget extends StatelessWidget {
+  const CustomTextWidget({super.key, required this.text});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Cairo',
       ),
     );
   }

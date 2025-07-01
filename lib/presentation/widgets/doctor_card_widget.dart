@@ -1,4 +1,6 @@
 import 'package:clinic/core/models/doctor_card_model.dart';
+import 'package:clinic/core/utils/colors_manager.dart';
+import 'package:clinic/presentation/widgets/custom_button1.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCardWidget extends StatelessWidget {
@@ -32,35 +34,43 @@ class DoctorCardWidget extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(
-                    doctor.name,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    doctor.specialization,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
+                  Column(
+                    spacing: 3,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.star, size: 16, color: Colors.amber),
-                      const SizedBox(width: 4),
                       Text(
-                        doctor.averageRating.toStringAsFixed(1),
-                        style: Theme.of(context).textTheme.bodySmall,
+                        doctor.name,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      const Spacer(),
                       Text(
-                        '${doctor.consultationFee.toStringAsFixed(0)} USD',
+                        doctor.specialization,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.star, size: 16, color: Colors.amber),
+                          const SizedBox(width: 4),
+                          Text(
+                            doctor.averageRating.toStringAsFixed(1),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Column(
+                    spacing: 10,
+                    children: [
+                      CustomButton(text: 'Book', onTap: () {}),
+                      Text(
+                        '${doctor.consultationFee.toStringAsFixed(0)}\$',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.green[700],
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 244, 184, 5),
                         ),
                       ),
                     ],
