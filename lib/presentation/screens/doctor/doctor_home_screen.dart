@@ -1,3 +1,4 @@
+import 'package:clinic/presentation/widgets/custom_text_widget.dart';
 import 'package:clinic/presentation/widgets/customed_app_bar.dart';
 import 'package:clinic/presentation/widgets/doctor_image_card.dart';
 import 'package:clinic/presentation/widgets/doctors_list_view.dart';
@@ -29,23 +30,6 @@ class DoctorHomeScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CustomTextWidget extends StatelessWidget {
-  const CustomTextWidget({super.key, required this.text});
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Cairo',
       ),
     );
   }

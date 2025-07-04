@@ -23,7 +23,7 @@ class SpecializationItem extends StatelessWidget {
               image,
               width: 55.w,
               height: 55.h,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
               errorBuilder:
                   (context, error, stackTrace) =>
                       Icon(Icons.image_not_supported, size: 60.r),

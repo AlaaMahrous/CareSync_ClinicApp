@@ -10,7 +10,7 @@ import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
-import 'package:clinic/presentation/screens/doctor_home_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';

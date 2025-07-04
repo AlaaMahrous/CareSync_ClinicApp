@@ -7,7 +7,6 @@ import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
-import 'package:clinic/presentation/screens/doctor_details_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:clinic/presentation/widgets/login_screen_body.dart';
 import 'package:flutter/material.dart';

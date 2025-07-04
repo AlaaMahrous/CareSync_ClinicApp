@@ -1,5 +1,4 @@
 import 'package:clinic/core/models/doctor_card_model.dart';
-import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/presentation/widgets/custom_button1.dart';
 import 'package:flutter/material.dart';
 
