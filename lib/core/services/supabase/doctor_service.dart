@@ -96,9 +96,9 @@ class DoctorService {
 
   Future<DoctorProfileModel?> getDoctorProfile(int doctorId) async {
     final response = await _client.rpc(
-      'get_doctor_profile',
+      'get_doctor_profile_data',
       params: {'doctor_id': doctorId},
     );
-    return DoctorProfileModel.fromMap(response.data[0]);
+    return DoctorProfileModel.fromMap(response[0]);
   }
 }

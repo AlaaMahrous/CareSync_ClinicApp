@@ -1,3 +1,4 @@
+import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/widgets/build_info_row.dart';
@@ -7,7 +8,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class DoctorProfileScreenBody extends StatelessWidget {
-  const DoctorProfileScreenBody({super.key});
+  const DoctorProfileScreenBody({super.key, required this.doctorModel});
+  final DoctorProfileModel doctorModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,13 @@ class DoctorProfileScreenBody extends StatelessWidget {
                     width: double.infinity,
                     color: ColorsManager.mainAppColor,
                   ),
-                  const SizedBox(height: 55),
-                  const Text(
-                    'Alaa Mahrous',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 60),
+                  Text(
+                    doctorModel.doctorName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   RatingBarIndicator(
                     rating: 4,
@@ -42,41 +47,40 @@ class DoctorProfileScreenBody extends StatelessWidget {
                           color: ColorsManager.mainAppColor,
                         ),
                   ),
-                  const SizedBox(height: 15),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
                         BuildInfoRow(
                           icon: Icons.info_outline,
                           label: 'Bio',
-                          value:
-                              'Experienced skin doctor with a passion for healthy skin.',
+                          value: doctorModel.info,
                         ),
                         BuildInfoRow(
                           icon: HugeIcons.strokeRoundedDoctor01,
                           label: 'Specialization ',
-                          value: 'Dermatologist',
+                          value: doctorModel.specialization,
                         ),
                         BuildInfoRow(
                           icon: Icons.phone,
                           label: 'Phone',
-                          value: '+20 123 456 7890',
+                          value: doctorModel.phone,
                         ),
                         BuildInfoRow(
                           icon: Icons.location_on,
                           label: 'Clinic Address',
-                          value: '123 Nile Street, Cairo',
+                          value: doctorModel.address,
                         ),
                         BuildInfoRow(
                           icon: Icons.access_time,
                           label: 'Experience',
-                          value: '8 years',
+                          value: '${doctorModel.experience.ceil()} Years',
                         ),
                         BuildInfoRow(
                           icon: Icons.attach_money,
                           label: 'Session Fee',
-                          value: 'EGP 300',
+                          value: '${doctorModel.consultationFee} USD',
                         ),
                       ],
                     ),
@@ -105,7 +109,7 @@ class DoctorProfileScreenBody extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image.network(
-                    'https://sesjzerlawpywdufplrw.supabase.co/storage/v1/object/public/images/profile/b5408107-0a2e-4634-a15f-76135cdb4487',
+                    doctorModel.imageUrl,
                     height: 115,
                     width: 115,
                     fit: BoxFit.cover,
