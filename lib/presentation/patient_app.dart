@@ -8,6 +8,7 @@ import 'package:hugeicons/hugeicons.dart';
 
 class PatientApp extends StatefulWidget {
   const PatientApp({super.key});
+  static final String path = '/PatientApp';
 
   @override
   State<PatientApp> createState() => _PatientAppState();

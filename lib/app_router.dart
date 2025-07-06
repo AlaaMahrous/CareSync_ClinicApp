@@ -1,6 +1,8 @@
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
+import 'package:clinic/presentation/doctor_app.dart';
+import 'package:clinic/presentation/patient_app.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/screens/auth/sign_up_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_details_screen.dart';
@@ -42,6 +44,14 @@ class AppRouter {
           final settings = SettingsService.getSettings();
           return ClinicApp(isDoctor: settings.isDoctor);
         },
+      ),
+      GoRoute(
+        path: DoctorApp.path,
+        builder: (context, state) => const DoctorApp(),
+      ),
+      GoRoute(
+        path: PatientApp.path,
+        builder: (context, state) => const PatientApp(),
       ),
       GoRoute(
         path: DoctorHomeScreen.path,

@@ -8,6 +8,8 @@ import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
+import 'package:clinic/presentation/doctor_app.dart';
+import 'package:clinic/presentation/patient_app.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:clinic/presentation/widgets/login_screen_body.dart';
 import 'package:flutter/material.dart';
@@ -97,17 +99,18 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
               Map<String, dynamic>? doctorData =
                   await DoctorService.instance.getDoctorData();
               userId = doctorData![AppConstants.doctorId].toString();
+              SettingsService.updateSettings(isDoctor: true, userId: userId);
+              if (mounted) {
+                _showError("Login successful!");
+                GoRouter.of(context).go(DoctorApp.path);
+              }
             } else {
               userId = UserService.instance.getUserId(userEmail).toString();
-            }
-            bool isDoctor;
-            (userType == AppConstants.doctor)
-                ? isDoctor = true
-                : isDoctor = false;
-            SettingsService.updateSettings(isDoctor: isDoctor, userId: userId);
-            if (mounted) {
-              _showError("Login successful!");
-              GoRouter.of(context).go(ClinicApp.path);
+              SettingsService.updateSettings(isDoctor: false, userId: userId);
+              if (mounted) {
+                _showError("Login successful!");
+                GoRouter.of(context).go(PatientApp.path);
+              }
             }
           }
         }

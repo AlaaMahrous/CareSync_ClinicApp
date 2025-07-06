@@ -6,8 +6,8 @@ import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
+import 'package:clinic/presentation/patient_app.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_details_screen.dart';
-import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
@@ -171,7 +171,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
           GoRouter.of(context).go(DoctorDetailsScreen.path);
         } else {
           if (mounted) {
-            GoRouter.of(context).go(PatientHomeScreen.path);
+            GoRouter.of(context).go(PatientApp.path);
           }
         }
         _showError(

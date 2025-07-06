@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
+import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
+import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/widgets/build_info_row.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class DoctorProfileScreenBody extends StatelessWidget {
@@ -88,7 +93,7 @@ class DoctorProfileScreenBody extends StatelessWidget {
                   const SizedBox(height: 30),
                   CustomButton(
                     onTap: () {
-                      SupAuthService.instance.signOut();
+                      logOutMethod(context);
                     },
                     text: 'Log Out',
                     width: 200,
@@ -121,5 +126,20 @@ class DoctorProfileScreenBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void logOutMethod(BuildContext context) {
+    try {
+      SupAuthService.instance.signOut();
+      showMessage(
+        context,
+        'You have successfully logged out!',
+        ColorsManager.mainAppColor,
+      );
+      GoRouter.of(context).go(LoginScreen.path);
+    } on Exception catch (e, stack) {
+      showMessage(context, e.toString(), ColorsManager.mainAppColor);
+      log('$e $stack');
+    }
   }
 }
