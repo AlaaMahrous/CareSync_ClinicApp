@@ -12,7 +12,7 @@ class DoctorService {
   final SupabaseClient _client = Supabase.instance.client;
   final String email = SupAuthService.instance.getCurrentUserEmail()!;
 
-  Future<Map<String, dynamic>?> getUserData() async {
+  Future<Map<String, dynamic>?> getDoctorData() async {
     final int userId = await UserService().getUserId(email);
     final response =
         await _client
@@ -23,12 +23,12 @@ class DoctorService {
     return response;
   }
 
-  Future<List<Map<String, dynamic>>> getUsersData() async {
+  Future<List<Map<String, dynamic>>> getDoctorsData() async {
     final response = await _client.from(AppConstants.doctorsTable).select();
     return List<Map<String, dynamic>>.from(response);
   }
 
-  Future<void> insertUserData({
+  Future<void> insertDoctorData({
     required int specialization,
     required double experienceYear,
     String? clinicAddress,
@@ -50,7 +50,7 @@ class DoctorService {
     });
   }
 
-  Future<PostgrestResponse> updateUserData({
+  Future<PostgrestResponse> updateDoctorData({
     int? specialization,
     double? experienceYear,
     String? clinicAddress,

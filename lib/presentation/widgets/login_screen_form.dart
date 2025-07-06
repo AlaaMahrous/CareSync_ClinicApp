@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
+import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
@@ -91,7 +92,14 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
           String userEmail = SupAuthService.instance.getCurrentUserEmail()!;
           if (userEmail.isNotEmpty) {
             final userType = await UserService.instance.getUserType(userEmail);
-            final userId = UserService.instance.getUserId(userEmail).toString();
+            String userId;
+            if (userType == AppConstants.doctor) {
+              Map<String, dynamic>? doctorData =
+                  await DoctorService.instance.getDoctorData();
+              userId = doctorData![AppConstants.doctorId].toString();
+            } else {
+              userId = UserService.instance.getUserId(userEmail).toString();
+            }
             bool isDoctor;
             (userType == AppConstants.doctor)
                 ? isDoctor = true

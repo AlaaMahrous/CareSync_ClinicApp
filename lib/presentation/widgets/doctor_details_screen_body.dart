@@ -3,8 +3,10 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:clinic/core/services/supabase/image_service.dart';
+import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
@@ -215,7 +217,7 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
         return;
       }
 
-      await DoctorService.instance.insertUserData(
+      await DoctorService.instance.insertDoctorData(
         specialization: selectedSpecIndex!,
         experienceYear: years!,
         consultationFee: fee!,
@@ -224,6 +226,10 @@ class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
         info: bio,
         phone: number,
       );
+      Map<String, dynamic>? doctorData =
+          await DoctorService.instance.getDoctorData();
+      int doctorId = doctorData![AppConstants.doctorId];
+      SettingsService.updateSettings(userId: doctorId.toString());
 
       _showMessage('Your profile has been successfully created.');
       if (mounted) {

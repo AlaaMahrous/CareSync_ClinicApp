@@ -37,7 +37,7 @@ class DoctorProfileScreenBody extends StatelessWidget {
                     ),
                   ),
                   RatingBarIndicator(
-                    rating: 4,
+                    rating: doctorModel.averageRating,
                     itemCount: 5,
                     itemSize: 18,
                     direction: Axis.horizontal,
@@ -99,7 +99,7 @@ class DoctorProfileScreenBody extends StatelessWidget {
                 top: 16,
                 right: 16,
                 child: IconButton(
-                  icon: const Icon(HugeIcons.strokeRoundedSettings01, size: 27),
+                  icon: const Icon(HugeIcons.strokeRoundedEdit02, size: 27),
                   onPressed: () {},
                 ),
               ),
