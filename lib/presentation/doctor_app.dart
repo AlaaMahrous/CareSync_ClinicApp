@@ -18,7 +18,8 @@ class _DoctorAppState extends State<DoctorApp> {
 
   static const List<Widget> _pages = <Widget>[
     DoctorHomeScreen(),
-    HomePage(),
+    SearchPage(),
+    SearchPage(),
     SearchPage(),
     DoctorProfileScreen(),
   ];
@@ -33,20 +34,24 @@ class _DoctorAppState extends State<DoctorApp> {
         selectedItemColor: ColorsManager.sAppColor,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 15),
+        margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 15),
         itemPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
         items: <SalomonBottomBarItem>[
           SalomonBottomBarItem(
-            icon: const Icon(HugeIcons.strokeRoundedHome03),
-            title: const Text('Home'),
+            icon: const Icon(CupertinoIcons.chart_bar),
+            title: const Text('Chat'),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(CupertinoIcons.collections),
+            title: const Text('Sessions'),
           ),
           SalomonBottomBarItem(
             icon: const Icon(HugeIcons.strokeRoundedClock01),
             title: const Text('Schedule'),
           ),
           SalomonBottomBarItem(
-            icon: const Icon(CupertinoIcons.chat_bubble),
-            title: const Text('Chat'),
+            icon: const Icon(HugeIcons.strokeRoundedNotification03),
+            title: const Text('Feeds'),
           ),
           SalomonBottomBarItem(
             icon: const Icon(CupertinoIcons.person),
@@ -83,8 +88,9 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('صفحة البحث', style: TextStyle(fontSize: 24)),
+    return const Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(child: Text('صفحة البحث', style: TextStyle(fontSize: 24))),
     );
   }
 }

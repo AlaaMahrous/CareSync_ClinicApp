@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/logic/cubit/doctor_profile_cubit/doctor_profile_cubit.dart';
 import 'package:clinic/presentation/widgets/doctor_profile_screen_body.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,14 @@ class DoctorProfileScreen extends StatefulWidget {
 }
 
 class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
+  final settings = SettingsService.getSettings();
   late DoctorProfileCubit doctorProfileCubit;
 
   @override
   void initState() {
     super.initState();
-    doctorProfileCubit = DoctorProfileCubit()..getDoctorProfileData();
+    doctorProfileCubit =
+        DoctorProfileCubit()..getDoctorProfileData(int.parse(settings.userId));
   }
 
   @override

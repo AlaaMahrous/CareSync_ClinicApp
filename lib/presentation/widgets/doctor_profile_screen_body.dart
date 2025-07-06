@@ -99,7 +99,7 @@ class DoctorProfileScreenBody extends StatelessWidget {
                 top: 16,
                 right: 16,
                 child: IconButton(
-                  icon: const Icon(HugeIcons.strokeRoundedEdit02, size: 27),
+                  icon: const Icon(HugeIcons.strokeRoundedEdit01, size: 27),
                   onPressed: () {},
                 ),
               ),

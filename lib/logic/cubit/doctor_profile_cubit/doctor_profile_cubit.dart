@@ -8,11 +8,11 @@ part 'doctor_profile_state.dart';
 class DoctorProfileCubit extends Cubit<DoctorProfileState> {
   DoctorProfileCubit() : super(DoctorProfileInitial());
 
-  getDoctorProfileData() async {
+  getDoctorProfileData(int id) async {
     emit(DoctorProfileLoading());
     try {
       DoctorProfileModel doctorModel = await DoctorService().getDoctorProfile(
-        1,
+        id,
       );
       emit(DoctorProfileLoaded(doctorModel: doctorModel));
     } on Exception catch (e, stack) {
