@@ -94,7 +94,7 @@ class DoctorService {
         .toList();
   }
 
-  Future<DoctorProfileModel?> getDoctorProfile(int doctorId) async {
+  Future<DoctorProfileModel> getDoctorProfile(int doctorId) async {
     final response = await _client.rpc(
       'get_doctor_profile_data',
       params: {'doctor_id': doctorId},
