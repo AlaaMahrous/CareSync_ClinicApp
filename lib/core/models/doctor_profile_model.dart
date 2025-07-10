@@ -2,7 +2,7 @@ class DoctorProfileModel {
   final int id;
   final String info;
   final String doctorName;
-  final String imageUrl;
+  final String? imageUrl;
   final String specialization;
   final double consultationFee;
   final double averageRating;
@@ -14,7 +14,7 @@ class DoctorProfileModel {
     required this.id,
     required this.info,
     required this.doctorName,
-    required this.imageUrl,
+    this.imageUrl,
     required this.specialization,
     required this.consultationFee,
     required this.averageRating,

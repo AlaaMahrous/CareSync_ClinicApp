@@ -7,6 +7,7 @@ import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/widgets/build_info_row.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
+import 'package:clinic/presentation/widgets/edit_doctor_details_screen_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_router/go_router.dart';
@@ -105,7 +106,12 @@ class DoctorProfileScreenBody extends StatelessWidget {
                 right: 16,
                 child: IconButton(
                   icon: const Icon(HugeIcons.strokeRoundedEdit01, size: 27),
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push(
+                      EditDoctorDetailsScreenBody.path,
+                      extra: doctorModel,
+                    );
+                  },
                 ),
               ),
               Positioned(
@@ -114,7 +120,8 @@ class DoctorProfileScreenBody extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image.network(
-                    doctorModel.imageUrl,
+                    doctorModel.imageUrl ??
+                        'https://i.pinimg.com/736x/3c/ae/07/3cae079ca0b9e55ec6bfc1b358c9b1e2.jpg',
                     height: 115,
                     width: 115,
                     fit: BoxFit.cover,

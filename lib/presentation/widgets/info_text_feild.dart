@@ -17,7 +17,9 @@ class InfoTextFeild extends StatelessWidget {
     this.controller,
     this.keyboardType,
     this.maxLength,
+    this.initialValue,
   });
+  final String? initialValue;
   final Widget? prefixIcon;
   final String hintText;
   bool obscureText;
@@ -31,6 +33,7 @@ class InfoTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       maxLength: maxLength,
       controller: controller,
       obscureText: obscureText,

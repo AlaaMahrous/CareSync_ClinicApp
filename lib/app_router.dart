@@ -1,3 +1,4 @@
+import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
@@ -10,6 +11,7 @@ import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/onboarding_screen.dart';
 import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
+import 'package:clinic/presentation/widgets/edit_doctor_details_screen_body.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -60,6 +62,13 @@ class AppRouter {
       GoRoute(
         path: PatientHomeScreen.path,
         builder: (context, state) => const PatientHomeScreen(),
+      ),
+      GoRoute(
+        path: EditDoctorDetailsScreenBody.path,
+        builder: (context, state) {
+          final doctorModel = state.extra as DoctorProfileModel;
+          return EditDoctorDetailsScreenBody(doctorModel: doctorModel);
+        },
       ),
     ],
     redirect: (context, state) => _checkSession(),
