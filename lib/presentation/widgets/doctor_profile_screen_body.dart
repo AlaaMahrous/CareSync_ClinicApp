@@ -4,19 +4,24 @@ import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
+import 'package:clinic/logic/cubit/doctor_profile_cubit/doctor_profile_cubit.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/widgets/build_info_row.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
-import 'package:clinic/presentation/widgets/info_text_feild.dart';
-import 'package:clinic/presentation/widgets/update_dialog.dart';
+import 'package:clinic/presentation/widgets/edit_doctor_details_screen_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class DoctorProfileScreenBody extends StatelessWidget {
-  const DoctorProfileScreenBody({super.key, required this.doctorModel});
+  const DoctorProfileScreenBody({
+    super.key,
+    required this.doctorModel,
+    required this.editCubit,
+  });
   final DoctorProfileModel doctorModel;
+  final DoctorProfileCubit editCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +65,6 @@ class DoctorProfileScreenBody extends StatelessWidget {
                     child: Column(
                       children: [
                         BuildInfoRow(
-                          onTap: () {
-                            floatingCard(context);
-                          },
                           icon: Icons.info_outline,
                           label: 'Bio',
                           value: doctorModel.info,
@@ -105,14 +107,22 @@ class DoctorProfileScreenBody extends StatelessWidget {
                   ),
                 ],
               ),
-              /*Positioned(
+              Positioned(
                 top: 16,
                 right: 16,
                 child: IconButton(
                   icon: const Icon(HugeIcons.strokeRoundedEdit01, size: 27),
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push(
+                      EditDoctorDetailsScreenBody.path,
+                      extra: {
+                        'doctorModel': doctorModel,
+                        'editCubit': editCubit,
+                      },
+                    );
+                  },
                 ),
-              ),*/
+              ),
               Positioned(
                 top: 60,
                 left: (screenWidth - 115) / 2,
@@ -131,52 +141,6 @@ class DoctorProfileScreenBody extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Future<dynamic> floatingCard(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return UpdateDialog();
-      },
-    );
-  }
-
-  PersistentBottomSheetController showSheet(BuildContext context) {
-    return showBottomSheet(
-      backgroundColor: Colors.white,
-      context: context,
-      builder: (BuildContext context) {
-        return Stack(
-          children: [
-            Container(
-              height: 500,
-              decoration: const BoxDecoration(
-                color: ColorsManager.sAppColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 60,
-              child: Container(
-                height: 700,
-                width: MediaQuery.of(context).size.width + 100,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(400),
-                    topRight: Radius.circular(0),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 

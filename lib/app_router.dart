@@ -1,6 +1,7 @@
 import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
+import 'package:clinic/logic/cubit/doctor_profile_cubit/doctor_profile_cubit.dart';
 import 'package:clinic/presentation/clinic_app.dart';
 import 'package:clinic/presentation/doctor_app.dart';
 import 'package:clinic/presentation/patient_app.dart';
@@ -12,6 +13,7 @@ import 'package:clinic/presentation/screens/onboarding_screen.dart';
 import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:clinic/presentation/widgets/edit_doctor_details_screen_body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -66,8 +68,13 @@ class AppRouter {
       GoRoute(
         path: EditDoctorDetailsScreenBody.path,
         builder: (context, state) {
-          final doctorModel = state.extra as DoctorProfileModel;
-          return EditDoctorDetailsScreenBody(doctorModel: doctorModel);
+          final data = state.extra as Map<String, dynamic>;
+          final doctorModel = data['doctorModel'] as DoctorProfileModel;
+          final editCubit = data['editCubit'] as DoctorProfileCubit;
+          return EditDoctorDetailsScreenBody(
+            doctorModel: doctorModel,
+            editCubit: editCubit,
+          );
         },
       ),
     ],

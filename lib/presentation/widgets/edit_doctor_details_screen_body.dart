@@ -5,7 +5,6 @@ import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:clinic/core/services/supabase/image_service.dart';
 import 'package:clinic/logic/cubit/doctor_profile_cubit/doctor_profile_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
@@ -17,12 +16,18 @@ import 'package:clinic/presentation/widgets/drop_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
 import 'package:clinic/presentation/widgets/profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class EditDoctorDetailsScreenBody extends StatefulWidget {
-  const EditDoctorDetailsScreenBody({super.key, required this.doctorModel});
+  const EditDoctorDetailsScreenBody({
+    super.key,
+    required this.doctorModel,
+    required this.editCubit,
+  });
   static final String path = '/EditDoctorDetailsScreenBody';
   final DoctorProfileModel doctorModel;
+  final DoctorProfileCubit editCubit;
 
   @override
   State<EditDoctorDetailsScreenBody> createState() =>
@@ -43,10 +48,12 @@ class _EditDoctorDetailsScreenBodyState
   double? years;
   String? selectedSpecialization;
   int? selectedSpecIndex;
+  late int id;
 
   @override
   void initState() {
     super.initState();
+    id = widget.doctorModel.id;
     bio = widget.doctorModel.info;
     adress = widget.doctorModel.address;
     number = widget.doctorModel.phone;
@@ -232,11 +239,9 @@ class _EditDoctorDetailsScreenBodyState
         info: bio,
         phone: number,
       );
-
       _showMessage('Your profile has been updated successfully.');
-      context.read<DoctorProfileCubit>().getDoctorProfileData(
-        widget.doctorModel.id,
-      );
+      widget.editCubit.getDoctorProfileData(id);
+      GoRouter.of(context).pop();
     } catch (e, stack) {
       log('Error in updateDoctorData: $e\n$stack');
       _showMessage('Update failed. Please try again.');

@@ -38,6 +38,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
         builder: (context, state) {
           if (state is DoctorProfileLoading) {
             return const Scaffold(
+              backgroundColor: Colors.white,
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (state is DoctorProfileLoadingFaild) {
@@ -48,9 +49,13 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
               ),
             );
           } else if (state is DoctorProfileLoaded) {
-            return DoctorProfileScreenBody(doctorModel: state.doctorModel);
+            return DoctorProfileScreenBody(
+              doctorModel: state.doctorModel,
+              editCubit: doctorProfileCubit,
+            );
           } else {
             return const Scaffold(
+              backgroundColor: Colors.white,
               body: Center(child: Text('Unexpected state')),
             );
           }

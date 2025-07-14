@@ -50,7 +50,7 @@ class DoctorService {
     });
   }
 
-  Future<PostgrestResponse> updateDoctorData({
+  Future<dynamic> updateDoctorData({
     int? specialization,
     double? experienceYear,
     String? clinicAddress,
