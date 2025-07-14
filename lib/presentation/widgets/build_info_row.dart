@@ -7,11 +7,13 @@ class BuildInfoRow extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.value,
+    this.onTap,
   });
 
   final IconData icon;
   final String label;
   final String value;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,27 +25,30 @@ class BuildInfoRow extends StatelessWidget {
           Icon(icon, color: ColorsManager.mainAppColor, size: 20),
           const SizedBox(width: 12),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Colors.grey[800],
+            child: InkWell(
+              onTap: onTap,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.grey[800],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                    fontFamily: 'Cairo',
+                  const SizedBox(height: 4),
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black87,
+                      fontFamily: 'Cairo',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

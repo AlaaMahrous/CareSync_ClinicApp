@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:clinic/core/services/supabase/image_service.dart';
+import 'package:clinic/logic/cubit/doctor_profile_cubit/doctor_profile_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
@@ -45,6 +47,15 @@ class _EditDoctorDetailsScreenBodyState
   @override
   void initState() {
     super.initState();
+    bio = widget.doctorModel.info;
+    adress = widget.doctorModel.address;
+    number = widget.doctorModel.phone;
+    years = widget.doctorModel.experience;
+    fee = widget.doctorModel.consultationFee;
+    selectedSpecialization = widget.doctorModel.specialization;
+    selectedSpecIndex =
+        ListsManagar.specializations.indexOf(selectedSpecialization!) + 1;
+    imageUrl = widget.doctorModel.imageUrl;
   }
 
   @override
@@ -115,7 +126,10 @@ class _EditDoctorDetailsScreenBodyState
                       hintText: 'Write a short bio about yourself',
                       initialValue: widget.doctorModel.info,
                       onSaved: (value) => bio = value,
-                      validator: (String) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'this feild is required';
+                        }
                         return null;
                       },
                     ),
@@ -136,7 +150,10 @@ class _EditDoctorDetailsScreenBodyState
                       hintText: 'Enter your clinic address',
                       initialValue: widget.doctorModel.address,
                       onSaved: (value) => adress = value,
-                      validator: (String) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'this feild is required';
+                        }
                         return null;
                       },
                     ),
@@ -145,7 +162,10 @@ class _EditDoctorDetailsScreenBodyState
                       hintText: 'Enter your phone number',
                       initialValue: widget.doctorModel.phone,
                       onSaved: (value) => number = value,
-                      validator: (String) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'this feild is required';
+                        }
                         return null;
                       },
                     ),
@@ -154,7 +174,10 @@ class _EditDoctorDetailsScreenBodyState
                       hintText: 'Enter years of experience',
                       initialValue: widget.doctorModel.experience.toString(),
                       onSaved: (value) => years = double.tryParse(value ?? ''),
-                      validator: (String) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'this feild is required';
+                        }
                         return null;
                       },
                     ),
@@ -164,7 +187,10 @@ class _EditDoctorDetailsScreenBodyState
                       initialValue:
                           widget.doctorModel.consultationFee.toString(),
                       onSaved: (value) => fee = double.tryParse(value ?? ''),
-                      validator: (String) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'this feild is required';
+                        }
                         return null;
                       },
                     ),
@@ -186,11 +212,6 @@ class _EditDoctorDetailsScreenBodyState
       return;
     }
 
-    if (selectedSpecIndex == null) {
-      _showMessage('Please select your specialization.');
-      return;
-    }
-
     try {
       _formKey.currentState!.save();
       setState(() => _isLoading = true);
@@ -198,16 +219,24 @@ class _EditDoctorDetailsScreenBodyState
       await uploadImage();
 
       await DoctorService.instance.updateDoctorData(
-        specialization: selectedSpecIndex!,
+        specialization:
+            selectedSpecIndex ??=
+                ListsManagar.specializations.indexOf(
+                  widget.doctorModel.specialization,
+                ) +
+                1,
         experienceYear: years!,
         consultationFee: fee!,
         clinicAddress: adress,
-        imageUrl: imageUrl,
+        imageUrl: imageUrl ?? widget.doctorModel.imageUrl,
         info: bio,
         phone: number,
       );
 
       _showMessage('Your profile has been updated successfully.');
+      context.read<DoctorProfileCubit>().getDoctorProfileData(
+        widget.doctorModel.id,
+      );
     } catch (e, stack) {
       log('Error in updateDoctorData: $e\n$stack');
       _showMessage('Update failed. Please try again.');
