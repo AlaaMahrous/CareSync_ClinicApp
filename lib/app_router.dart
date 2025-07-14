@@ -13,7 +13,6 @@ import 'package:clinic/presentation/screens/onboarding_screen.dart';
 import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
 import 'package:clinic/presentation/widgets/edit_doctor_details_screen_body.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
