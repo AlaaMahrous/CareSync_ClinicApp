@@ -1,17 +1,21 @@
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AppointmentService {
+  static final AppointmentService instance = AppointmentService._internal();
+  factory AppointmentService() => instance;
+  AppointmentService._internal();
   final SupabaseClient _client = Supabase.instance.client;
+  final settings = SettingsService.getSettings();
 
   /// Add new appointment (by doctor)
   Future<void> addAppointment({
-    required int doctorId,
     required DateTime availableDate,
     required int duration,
   }) async {
     await _client.from(AppConstants.appointmentsTable).insert({
-      AppConstants.appointmentDoctorId: doctorId,
+      AppConstants.appointmentDoctorId: settings.userId,
       AppConstants.appointmentAvailableDate: availableDate.toIso8601String(),
       AppConstants.appointmentDuration: duration,
     });

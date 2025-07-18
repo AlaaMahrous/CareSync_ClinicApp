@@ -20,6 +20,7 @@ class InfoTextFeild extends StatelessWidget {
     this.initialValue,
     this.vertical = 0,
   });
+
   final String? initialValue;
   final Widget? prefixIcon;
   final String hintText;
@@ -35,9 +36,9 @@ class InfoTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: initialValue,
-      maxLength: maxLength,
       controller: controller,
+      initialValue: controller == null ? initialValue : null,
+      maxLength: maxLength,
       obscureText: obscureText,
       onSaved: onSaved,
       validator: validator,

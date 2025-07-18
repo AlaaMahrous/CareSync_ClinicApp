@@ -72,6 +72,10 @@ class _TimePickerFieldState extends State<TimePickerField> {
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: ColorsManager.mainAppColor, width: 1.w),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(color: Colors.red, width: 1.w),
+        ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r)),
       ),
       onTap: () => _selectTime(context),
