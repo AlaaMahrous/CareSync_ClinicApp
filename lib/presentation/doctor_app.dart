@@ -1,6 +1,7 @@
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,7 @@ class _DoctorAppState extends State<DoctorApp> {
   static const List<Widget> _pages = <Widget>[
     DoctorHomeScreen(),
     SearchPage(),
-    SearchPage(),
+    DoctorScheduleScreen(),
     SearchPage(),
     DoctorProfileScreen(),
   ];
@@ -70,20 +71,6 @@ class _DoctorAppState extends State<DoctorApp> {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'مرحباً بك في الصفحة الرئيسية',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }
-}
-
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
@@ -92,17 +79,6 @@ class SearchPage extends StatelessWidget {
     return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(child: Text('صفحة البحث', style: TextStyle(fontSize: 24))),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('الملف الشخصي', style: TextStyle(fontSize: 24)),
     );
   }
 }

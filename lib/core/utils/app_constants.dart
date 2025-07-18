@@ -2,12 +2,14 @@ class AppConstants {
   static const String projectURL = 'https://sesjzerlawpywdufplrw.supabase.co';
   static const String aPIKeyAnon =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlc2p6ZXJsYXdweXdkdWZwbHJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDExMDgyNTgsImV4cCI6MjA1NjY4NDI1OH0.doP5RPAicAhB8lCflfWqupp4MQdYeg_QErCX3RDE_rQ';
+
+  // -- ثابت القيم --
   static const String doctor = 'Doctor';
   static const String patient = 'Patient';
   static const String male = 'Male';
   static const String female = 'Female';
 
-  // -- usersTable --
+  // -- Users Table --
   static const String usersTable = 'Users';
   static const String userId = 'id';
   static const String userCreatedAt = 'created_at';
@@ -18,12 +20,12 @@ class AppConstants {
   static const String userBirthDate = 'birth_date';
   static const String userEmail = 'email';
 
-  // -- doctorsTable --
+  // -- Doctors Table --
   static const String doctorsTable = 'Doctors';
   static const String doctorId = 'id';
   static const String doctorCreatedAt = 'created_at';
   static const String doctorUserId = 'user_id';
-  static const String doctorSpecialization = 'specialization';
+  static const String doctorSpecializationId = 'specialization';
   static const String doctorExperience = 'experience';
   static const String doctorClinicAddress = 'clinic_address';
   static const String doctorConsultationFee = 'consultation_fee';
@@ -31,33 +33,24 @@ class AppConstants {
   static const String doctorInfo = 'info';
   static const String doctorPhoneNumber = 'phone_number';
 
-  // -- specializationsTable --
+  // -- Specializations Table --
   static const String specializationsTable = 'Specializations';
   static const String specializationId = 'id';
   static const String specializationCreatedAt = 'created_at';
-  static const String specializationSpecialization = 'specialization';
+  static const String specializationName = 'specialization';
   static const String specializationImage = 'image';
 
-  // -- doctorAvailableAppointmentsTable --
-  static const String doctorAvailableAppointmentsTable =
-      'Doctor_Available_Appointments';
-  static const String doctorAvailableAppointmentId = 'id';
-  static const String doctorAvailableAppointmentCreatedAt = 'created_at';
-  static const String doctorAvailableAppointmentDoctorId = 'doctor_id';
-  static const String doctorAvailableAppointmentDate = 'available_date';
-  static const String doctorAvailableAppointmentTime = 'available_time';
-  static const String doctorAvailableAppointmentIsBooked = 'is_booked';
-
-  // -- appointmentsTable --
+  // -- Appointments Table --
   static const String appointmentsTable = 'Appointments';
   static const String appointmentId = 'id';
   static const String appointmentCreatedAt = 'created_at';
   static const String appointmentPatientId = 'patient_id';
   static const String appointmentDoctorId = 'doctor_id';
-  static const String appointmentSlotId = 'slot_id';
-  static const String appointmentStatus = 'status';
+  static const String appointmentAvailableDate = 'available_date';
+  static const String appointmentDuration = 'duration';
+  static const String appointmentIsBooked = 'is_booked';
 
-  // -- doctorRatingsTable --
+  // -- Doctors_Ratings Table --
   static const String doctorRatingsTable = 'Doctors_Ratings';
   static const String doctorRatingId = 'id';
   static const String doctorRatingCreatedAt = 'created_at';
@@ -66,5 +59,6 @@ class AppConstants {
   static const String doctorRatingValue = 'rating';
   static const String doctorRatingComment = 'comment';
 
+  // -- View or Logic Constants (غير موجود في الـ schema لكن يمكن الاحتفاظ بها) --
   static const String doctorAverageRatings = 'Doctor_Average_Ratings';
 }

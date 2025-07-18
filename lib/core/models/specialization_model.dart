@@ -14,7 +14,7 @@ class SpecializationModel {
   factory SpecializationModel.fromJson(Map<String, dynamic> json) {
     return SpecializationModel(
       id: json[AppConstants.specializationId],
-      specialization: json[AppConstants.specializationSpecialization],
+      specialization: json[AppConstants.specializationName],
       image: json[AppConstants.specializationImage],
     );
   }
@@ -22,7 +22,7 @@ class SpecializationModel {
   Map<String, dynamic> toJson() {
     return {
       AppConstants.specializationId: id,
-      AppConstants.specializationSpecialization: specialization,
+      AppConstants.specializationName: specialization,
       AppConstants.specializationImage: image,
     };
   }

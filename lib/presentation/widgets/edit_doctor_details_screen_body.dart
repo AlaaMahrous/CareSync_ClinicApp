@@ -123,83 +123,89 @@ class _EditDoctorDetailsScreenBodyState
                         setState(() {});
                       },
                     ),
-                    Text(
-                      'Update your profile information',
-                      style: TextStyleManager.loginInfo,
-                    ),
-
-                    InfoTextFeild(
-                      maxLength: 200,
-                      hintText: 'Write a short bio about yourself',
-                      initialValue: widget.doctorModel.info,
-                      onSaved: (value) => bio = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'this feild is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    DropFeild(
-                      hint: widget.doctorModel.specialization,
-                      items: ListsManagar.specializations,
-                      selectedItem: selectedSpecialization,
-                      onChanged: (newValue) {
-                        setState(() {
-                          selectedSpecialization = newValue;
-                          selectedSpecIndex =
-                              ListsManagar.specializations.indexOf(newValue!) +
-                              1;
-                        });
-                      },
-                    ),
-                    InfoTextFeild(
-                      hintText: 'Enter your clinic address',
-                      initialValue: widget.doctorModel.address,
-                      onSaved: (value) => adress = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'this feild is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    InfoTextFeild(
-                      keyboardType: TextInputType.phone,
-                      hintText: 'Enter your phone number',
-                      initialValue: widget.doctorModel.phone,
-                      onSaved: (value) => number = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'this feild is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    InfoTextFeild(
-                      keyboardType: TextInputType.number,
-                      hintText: 'Enter years of experience',
-                      initialValue: widget.doctorModel.experience.toString(),
-                      onSaved: (value) => years = double.tryParse(value ?? ''),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'this feild is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    InfoTextFeild(
-                      keyboardType: TextInputType.number,
-                      hintText: 'Enter consultation fee in dollars',
-                      initialValue:
-                          widget.doctorModel.consultationFee.toString(),
-                      onSaved: (value) => fee = double.tryParse(value ?? ''),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'this feild is required';
-                        }
-                        return null;
-                      },
+                    Column(
+                      spacing: 15.h,
+                      children: [
+                        const SizedBox(height: 2),
+                        InfoTextFeild(
+                          maxLength: 200,
+                          hintText: 'Write a short bio about yourself',
+                          initialValue: widget.doctorModel.info,
+                          onSaved: (value) => bio = value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'this feild is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        DropFeild(
+                          hint: widget.doctorModel.specialization,
+                          items: ListsManagar.specializations,
+                          selectedItem: selectedSpecialization,
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedSpecialization = newValue;
+                              selectedSpecIndex =
+                                  ListsManagar.specializations.indexOf(
+                                    newValue!,
+                                  ) +
+                                  1;
+                            });
+                          },
+                        ),
+                        InfoTextFeild(
+                          hintText: 'Enter your clinic address',
+                          initialValue: widget.doctorModel.address,
+                          onSaved: (value) => adress = value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'this feild is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        InfoTextFeild(
+                          keyboardType: TextInputType.phone,
+                          hintText: 'Enter your phone number',
+                          initialValue: widget.doctorModel.phone,
+                          onSaved: (value) => number = value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'this feild is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        InfoTextFeild(
+                          keyboardType: TextInputType.number,
+                          hintText: 'Enter years of experience',
+                          initialValue:
+                              widget.doctorModel.experience.toString(),
+                          onSaved:
+                              (value) => years = double.tryParse(value ?? ''),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'this feild is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        InfoTextFeild(
+                          keyboardType: TextInputType.number,
+                          hintText: 'Enter consultation fee in dollars',
+                          initialValue:
+                              widget.doctorModel.consultationFee.toString(),
+                          onSaved:
+                              (value) => fee = double.tryParse(value ?? ''),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'this feild is required';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
                     ),
                     SizedBox(height: 15.h),
                     CustomButton(text: 'Update', onTap: updateDoctorData),
@@ -241,7 +247,9 @@ class _EditDoctorDetailsScreenBodyState
       );
       _showMessage('Your profile has been updated successfully.');
       widget.editCubit.getDoctorProfileData(id);
-      GoRouter.of(context).pop();
+      if (mounted) {
+        GoRouter.of(context).pop();
+      }
     } catch (e, stack) {
       log('Error in updateDoctorData: $e\n$stack');
       _showMessage('Update failed. Please try again.');

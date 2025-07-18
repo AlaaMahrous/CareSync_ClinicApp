@@ -45,7 +45,7 @@ class SpecializationHomeRow extends StatelessWidget {
             itemBuilder: (context, index) {
               final spec = specializations[index];
               return SpecializationItem(
-                specialization: spec[AppConstants.specializationSpecialization],
+                specialization: spec[AppConstants.specializationName],
                 image: spec[AppConstants.specializationImage],
               );
             },

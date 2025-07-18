@@ -40,7 +40,7 @@ class DoctorService {
     final int userId = await UserService().getUserId(email);
     await _client.from(AppConstants.doctorsTable).insert({
       AppConstants.doctorUserId: userId,
-      AppConstants.doctorSpecialization: specialization,
+      AppConstants.doctorSpecializationId: specialization,
       AppConstants.doctorExperience: experienceYear,
       AppConstants.doctorClinicAddress: clinicAddress,
       AppConstants.doctorConsultationFee: consultationFee,
@@ -62,7 +62,7 @@ class DoctorService {
     final int userId = await UserService().getUserId(email);
     Map<String, dynamic> updatedData = {};
     if (specialization != null) {
-      updatedData[AppConstants.doctorSpecialization] = specialization;
+      updatedData[AppConstants.doctorSpecializationId] = specialization;
     }
     if (experienceYear != null) {
       updatedData[AppConstants.doctorExperience] = experienceYear;

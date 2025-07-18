@@ -2,17 +2,21 @@ import 'package:clinic/core/utils/app_constants.dart';
 
 class AppointmentModel {
   final int id;
-  final int patientId;
+  final int? patientId;
   final int doctorId;
-  final int slotId;
-  final String status;
+  final DateTime availableDate;
+  final int duration;
+  final bool isBooked;
+  final DateTime createdAt;
 
   AppointmentModel({
     required this.id,
     required this.patientId,
     required this.doctorId,
-    required this.slotId,
-    required this.status,
+    required this.availableDate,
+    required this.duration,
+    required this.isBooked,
+    required this.createdAt,
   });
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
@@ -20,8 +24,12 @@ class AppointmentModel {
       id: json[AppConstants.appointmentId],
       patientId: json[AppConstants.appointmentPatientId],
       doctorId: json[AppConstants.appointmentDoctorId],
-      slotId: json[AppConstants.appointmentSlotId],
-      status: json[AppConstants.appointmentStatus],
+      availableDate: DateTime.parse(
+        json[AppConstants.appointmentAvailableDate],
+      ),
+      duration: json[AppConstants.appointmentDuration],
+      isBooked: json[AppConstants.appointmentIsBooked],
+      createdAt: DateTime.parse(json[AppConstants.appointmentCreatedAt]),
     );
   }
 
@@ -30,8 +38,10 @@ class AppointmentModel {
       AppConstants.appointmentId: id,
       AppConstants.appointmentPatientId: patientId,
       AppConstants.appointmentDoctorId: doctorId,
-      AppConstants.appointmentSlotId: slotId,
-      AppConstants.appointmentStatus: status,
+      AppConstants.appointmentAvailableDate: availableDate.toIso8601String(),
+      AppConstants.appointmentDuration: duration,
+      AppConstants.appointmentIsBooked: isBooked,
+      AppConstants.appointmentCreatedAt: createdAt.toIso8601String(),
     };
   }
 }

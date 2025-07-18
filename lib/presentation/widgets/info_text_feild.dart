@@ -18,6 +18,7 @@ class InfoTextFeild extends StatelessWidget {
     this.keyboardType,
     this.maxLength,
     this.initialValue,
+    this.vertical = 0,
   });
   final String? initialValue;
   final Widget? prefixIcon;
@@ -29,6 +30,7 @@ class InfoTextFeild extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final double vertical;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,10 @@ class InfoTextFeild extends StatelessWidget {
       validator: validator,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20.w),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: vertical,
+          horizontal: 15.w,
+        ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,

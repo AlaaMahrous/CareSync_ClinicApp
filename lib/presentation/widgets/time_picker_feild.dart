@@ -4,49 +4,48 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DatePickerField extends StatefulWidget {
+class TimePickerField extends StatefulWidget {
   final TextEditingController controller;
   final String? Function(String?) validator;
   final String? hintText;
-  final DateTime firstDate;
-  final DateTime lastDate;
 
-  const DatePickerField({
+  const TimePickerField({
     super.key,
     required this.controller,
     required this.validator,
-    this.hintText = 'Enter your birth date',
-    required this.firstDate,
-    required this.lastDate,
+    this.hintText = 'Select session time',
   });
 
   @override
-  State<DatePickerField> createState() => _DatePickerFieldState();
+  State<TimePickerField> createState() => _TimePickerFieldState();
 }
 
-class _DatePickerFieldState extends State<DatePickerField> {
-  DateTime dateTime = DateTime.now();
-  Future<void> _selectDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
+class _TimePickerFieldState extends State<TimePickerField> {
+  TimeOfDay time = TimeOfDay.now();
+
+  Future<void> _selectTime(BuildContext context) async {
+    TimeOfDay? pickedTime = await showTimePicker(
       context: context,
-      initialDate: dateTime,
-      firstDate: widget.firstDate,
-      lastDate: widget.lastDate,
+      initialTime: time,
       builder: (context, child) {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: const ColorScheme.light(
               primary: ColorsManager.mainAppColor,
+              secondary: ColorsManager.mainAppColor,
             ),
           ),
           child: child!,
         );
       },
     );
-    if (pickedDate != null) {
+    if (pickedTime != null) {
       setState(() {
-        dateTime = pickedDate;
-        widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+        time = pickedTime;
+        final formattedTime = DateFormat(
+          'hh:mm a',
+        ).format(DateTime(2023, 1, 1, pickedTime.hour, pickedTime.minute));
+        widget.controller.text = formattedTime;
       });
     }
   }
@@ -61,9 +60,9 @@ class _DatePickerFieldState extends State<DatePickerField> {
         hintText: widget.hintText,
         hintStyle: TextStyleManager.loginFeildHint,
         suffixIcon: const Icon(
-          Icons.calendar_today,
+          Icons.access_time,
           color: ColorsManager.mainAppColor,
-          size: 20,
+          size: 23,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
@@ -75,7 +74,7 @@ class _DatePickerFieldState extends State<DatePickerField> {
         ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r)),
       ),
-      onTap: () => _selectDate(context),
+      onTap: () => _selectTime(context),
     );
   }
 }

@@ -27,7 +27,7 @@ class DoctorModel {
     return DoctorModel(
       id: json[AppConstants.doctorId],
       userId: json[AppConstants.doctorUserId],
-      specialization: json[AppConstants.doctorSpecialization],
+      specialization: json[AppConstants.doctorSpecializationId],
       experience: (json[AppConstants.doctorExperience] as num).toDouble(),
       clinicAddress: json[AppConstants.doctorClinicAddress],
       consultationFee:
@@ -42,7 +42,7 @@ class DoctorModel {
     return {
       AppConstants.doctorId: id,
       AppConstants.doctorUserId: userId,
-      AppConstants.doctorSpecialization: specialization,
+      AppConstants.doctorSpecializationId: specialization,
       AppConstants.doctorExperience: experience,
       AppConstants.doctorClinicAddress: clinicAddress,
       AppConstants.doctorConsultationFee: consultationFee,

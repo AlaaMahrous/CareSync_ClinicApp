@@ -94,10 +94,12 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
                       },
                     ),
                     DatePickerField(
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now(),
                       controller: birthDateController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Password is required';
+                          return 'Your birth Date is required';
                         }
                         return null;
                       },
