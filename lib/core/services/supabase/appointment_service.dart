@@ -1,3 +1,4 @@
+import 'package:clinic/core/models/appointment_model.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -29,6 +30,49 @@ class AppointmentService {
         .eq(AppConstants.appointmentDoctorId, doctorId)
         .order(AppConstants.appointmentAvailableDate, ascending: true);
     return List<Map<String, dynamic>>.from(response);
+  }
+
+  // get Filtered Appointments
+  Future<List<AppointmentModel>> getFilteredAppointments({
+    required int doctorId,
+    int? year,
+    int? month,
+    int? day,
+    bool? isBooked,
+  }) async {
+    final query = _client
+        .from(AppConstants.appointmentsTable)
+        .select()
+        .eq(AppConstants.appointmentDoctorId, doctorId);
+
+    if (isBooked != null) {
+      query.eq(AppConstants.appointmentIsBooked, isBooked);
+    }
+
+    if (year != null && month != null && day != null) {
+      final DateTime start = DateTime(year, month, day);
+      final DateTime end = start.add(const Duration(days: 1));
+      query.gte(AppConstants.appointmentAvailableDate, start.toIso8601String());
+      query.lt(AppConstants.appointmentAvailableDate, end.toIso8601String());
+    } else if (year != null && month != null) {
+      final DateTime start = DateTime(year, month);
+      final DateTime end =
+          (month == 12) ? DateTime(year + 1, 1) : DateTime(year, month + 1);
+      query.gte(AppConstants.appointmentAvailableDate, start.toIso8601String());
+      query.lt(AppConstants.appointmentAvailableDate, end.toIso8601String());
+    } else if (year != null) {
+      final DateTime start = DateTime(year);
+      final DateTime end = DateTime(year + 1);
+      query.gte(AppConstants.appointmentAvailableDate, start.toIso8601String());
+      query.lt(AppConstants.appointmentAvailableDate, end.toIso8601String());
+    }
+
+    query.order(AppConstants.appointmentAvailableDate, ascending: true);
+
+    final response = await query;
+    return List<Map<String, dynamic>>.from(
+      response,
+    ).map((json) => AppointmentModel.fromJson(json)).toList();
   }
 
   /// Get appointments for a specific patient
