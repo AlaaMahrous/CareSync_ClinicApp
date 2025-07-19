@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:clinic/core/services/supabase/appointment_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
+import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments_cubit.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
 import 'package:clinic/presentation/widgets/time_picker_feild.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -200,6 +202,14 @@ class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
       _dateController.clear();
       _timeController.clear();
       _durationController.clear();
+      if (mounted) {
+        context.read<DoctorAppointmentsCubit>().getFilteredAppointments(
+          year: DateTime.now().year,
+          month: DateTime.now().month,
+          day: DateTime.now().day,
+          isBooked: false,
+        );
+      }
     } catch (e) {
       _showError('Something went wrong. Please try again.');
       log('Error: $e');

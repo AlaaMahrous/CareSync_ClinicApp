@@ -34,7 +34,6 @@ class AppointmentService {
 
   // get Filtered Appointments
   Future<List<AppointmentModel>> getFilteredAppointments({
-    required int doctorId,
     int? year,
     int? month,
     int? day,
@@ -43,7 +42,7 @@ class AppointmentService {
     final query = _client
         .from(AppConstants.appointmentsTable)
         .select()
-        .eq(AppConstants.appointmentDoctorId, doctorId);
+        .eq(AppConstants.appointmentDoctorId, settings.userId);
 
     if (isBooked != null) {
       query.eq(AppConstants.appointmentIsBooked, isBooked);

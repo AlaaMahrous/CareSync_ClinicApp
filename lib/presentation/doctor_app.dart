@@ -2,6 +2,7 @@ import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_schedule_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_sessions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,7 @@ class _DoctorAppState extends State<DoctorApp> {
 
   static const List<Widget> _pages = <Widget>[
     DoctorHomeScreen(),
-    SearchPage(),
+    DoctorSessionsScreen(),
     DoctorScheduleScreen(),
     SearchPage(),
     DoctorProfileScreen(),

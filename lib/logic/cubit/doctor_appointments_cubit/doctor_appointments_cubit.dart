@@ -9,7 +9,6 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
   DoctorAppointmentsCubit() : super(DoctorAppointmentsInitial());
 
   Future<void> getFilteredAppointments({
-    required int doctorId,
     int? year,
     int? month,
     int? day,
@@ -21,7 +20,6 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
       final List<AppointmentModel> appointments = await AppointmentService
           .instance
           .getFilteredAppointments(
-            doctorId: doctorId,
             year: year,
             month: month,
             day: day,

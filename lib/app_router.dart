@@ -10,6 +10,7 @@ import 'package:clinic/presentation/screens/auth/sign_up_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_details_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_schedule_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_sessions_screen.dart';
 import 'package:clinic/presentation/screens/onboarding_screen.dart';
 import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:clinic/presentation/screens/user_details_screen.dart';
@@ -80,6 +81,10 @@ class AppRouter {
       GoRoute(
         path: DoctorScheduleScreen.path,
         builder: (context, state) => const DoctorScheduleScreen(),
+      ),
+      GoRoute(
+        path: DoctorSessionsScreen.path,
+        builder: (context, state) => const DoctorSessionsScreen(),
       ),
     ],
     redirect: (context, state) => _checkSession(),
