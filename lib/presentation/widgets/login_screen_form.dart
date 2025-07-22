@@ -102,14 +102,14 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
               SettingsService.updateSettings(isDoctor: true, userId: userId);
               if (mounted) {
                 _showError("Login successful!");
-                GoRouter.of(context).go(DoctorApp.path);
+                GoRouter.of(context).go(ClinicApp.path);
               }
             } else {
               userId = UserService.instance.getUserId(userEmail).toString();
               SettingsService.updateSettings(isDoctor: false, userId: userId);
               if (mounted) {
                 _showError("Login successful!");
-                GoRouter.of(context).go(PatientApp.path);
+                GoRouter.of(context).go(ClinicApp.path);
               }
             }
           }

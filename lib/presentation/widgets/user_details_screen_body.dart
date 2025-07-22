@@ -6,8 +6,7 @@ import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
-import 'package:clinic/presentation/patient_app.dart';
-import 'package:clinic/presentation/screens/doctor/doctor_details_screen.dart';
+import 'package:clinic/presentation/clinic_app.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
@@ -169,12 +168,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
           userId: userId.toString(),
           isDoctor: isDoctor,
         );
-        if (selectedUserType == AppConstants.doctor && mounted) {
-          GoRouter.of(context).go(DoctorDetailsScreen.path);
-        } else {
-          if (mounted) {
-            GoRouter.of(context).go(PatientApp.path);
-          }
+        if (mounted) {
+          GoRouter.of(context).go(ClinicApp.path);
         }
         _showError(
           "Your profile has been successfully completed! Welcome aboard!",
