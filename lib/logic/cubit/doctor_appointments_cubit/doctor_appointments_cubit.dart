@@ -9,9 +9,9 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
   DoctorAppointmentsCubit() : super(DoctorAppointmentsInitial());
 
   Future<void> getFilteredAppointments({
-    int? year,
-    int? month,
-    int? day,
+    required int year,
+    required int month,
+    required int day,
     bool? isBooked,
   }) async {
     emit(DoctorAppointmentsLoading());

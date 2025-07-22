@@ -13,6 +13,7 @@ class DoctorSessionsScreenBody extends StatelessWidget {
         child: Column(
           children: [
             Container(height: 100, color: ColorsManager.mainAppColor),
+            const SizedBox(height: 10),
             const Expanded(child: DoctorAppointmentsSessions()),
           ],
         ),
