@@ -1,4 +1,5 @@
 import 'package:clinic/core/models/appointment_model.dart';
+import 'package:clinic/core/services/supabase/appointment_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments_cubit.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,18 @@ class _DoctorAppointmentsSessionsState
       builder: (context, state) {
         if (state is DoctorAppointmentsLoading) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            backgroundColor: Colors.white,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: ColorsManager.mainAppColor,
+              ),
+            ),
           );
         } else if (state is DoctorAppointmentsFailure) {
-          return Scaffold(body: Center(child: Text('Error: ${state.message}')));
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(child: Text('Error: ${state.message}')),
+          );
         } else if (state is DoctorAppointmentsLoaded) {
           final appointments = state.appointments;
           return ListView.builder(
@@ -47,7 +56,10 @@ class _DoctorAppointmentsSessionsState
             },
           );
         } else {
-          return const Scaffold(body: Center(child: Text('Unexpected State')));
+          return const Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(child: Text('Unexpected State')),
+          );
         }
       },
     );
@@ -111,7 +123,18 @@ class AppointmentCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            AppointmentService.instance.deleteAppointment(
+                              appointment.id,
+                            );
+                            context
+                                .read<DoctorAppointmentsCubit>()
+                                .getFilteredAppointments(
+                                  year: appointment.availableDate.year,
+                                  month: appointment.availableDate.month,
+                                  day: appointment.availableDate.day,
+                                );
+                          },
                           child: const Icon(
                             HugeIcons.strokeRoundedDelete01,
                             color: ColorsManager.sAppColor,
