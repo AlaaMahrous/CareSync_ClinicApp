@@ -131,4 +131,27 @@ class AppointmentService {
 
     return response;
   }
+
+  // Check the appointment overlapping
+  bool isOverlapping({
+    required List<AppointmentModel> existingAppointments,
+    required DateTime newStart,
+    required int newDurationMinutes,
+  }) {
+    final newEnd = newStart.add(Duration(minutes: newDurationMinutes));
+
+    for (var appointment in existingAppointments) {
+      final existingStart = appointment.availableDate;
+      final existingEnd = existingStart.add(
+        Duration(minutes: appointment.duration),
+      );
+
+      final hasOverlap =
+          !(newEnd.isBefore(existingStart) || newStart.isAfter(existingEnd));
+
+      if (hasOverlap) return true;
+    }
+
+    return false;
+  }
 }
