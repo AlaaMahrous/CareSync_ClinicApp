@@ -11,12 +11,16 @@ class CustomButton extends StatelessWidget {
     this.height = 48,
     this.width = double.infinity,
     this.r = 10,
+    this.textColor = Colors.white,
+    this.buttonColor = ColorsManager.mainAppColor,
   });
   final String text;
   final VoidCallback onTap;
   final double height;
   final double width;
   final double r;
+  final Color textColor;
+  final Color buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +29,14 @@ class CustomButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(r.r),
-          color: ColorsManager.mainAppColor,
+          color: buttonColor,
         ),
         width: width.w,
         height: height.h,
         child: Center(
           child: Text(
             text,
-            style: TextStyleManager.loginInfo.copyWith(color: Colors.white),
+            style: TextStyleManager.loginInfo.copyWith(color: textColor),
           ),
         ),
       ),

@@ -63,7 +63,7 @@ class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
                         title('Choose a Date for Your Session'),
                         DatePickerField(
                           firstDate: DateTime.now(),
-                          lastDate: DateTime(2030),
+                          lastDate: DateTime(2200),
                           hintText: 'Select Your Session Date',
                           controller: _dateController,
                           validator: (value) {

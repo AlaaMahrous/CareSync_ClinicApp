@@ -10,11 +10,15 @@ class DropFeild extends StatelessWidget {
     this.onChanged,
     required this.hint,
     required this.items,
+    this.bColor = ColorsManager.mainAppColor,
+    this.tColor = Colors.black,
   });
   final String? selectedItem;
   final String hint;
   final void Function(String?)? onChanged;
   final List<String> items;
+  final Color bColor;
+  final Color tColor;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +26,13 @@ class DropFeild extends StatelessWidget {
       height: 50.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(color: ColorsManager.mainAppColor, width: 1.3.w),
+        border: Border.all(color: bColor, width: 1.3.w),
       ),
       child: Center(
         child: DropdownButton2<String>(
+          iconStyleData: IconStyleData(
+            icon: Icon(Icons.arrow_drop_down, color: bColor),
+          ),
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200.h,
             decoration: BoxDecoration(
@@ -37,6 +44,16 @@ class DropFeild extends StatelessWidget {
           isExpanded: true,
           value: selectedItem,
           hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
+          selectedItemBuilder: (BuildContext context) {
+            return items.map((String value) {
+              return Text(
+                value,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall?.copyWith(color: tColor),
+              );
+            }).toList();
+          },
           items:
               items.map((String value) {
                 return DropdownMenuItem<String>(
@@ -47,6 +64,7 @@ class DropFeild extends StatelessWidget {
                   ),
                 );
               }).toList(),
+
           onChanged: onChanged,
         ),
       ),

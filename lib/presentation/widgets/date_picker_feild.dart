@@ -10,6 +10,8 @@ class DatePickerField extends StatefulWidget {
   final String? hintText;
   final DateTime firstDate;
   final DateTime lastDate;
+  final Color color;
+  final Color tColor;
 
   const DatePickerField({
     super.key,
@@ -18,6 +20,8 @@ class DatePickerField extends StatefulWidget {
     this.hintText = 'Enter your birth date',
     required this.firstDate,
     required this.lastDate,
+    this.color = ColorsManager.mainAppColor,
+    this.tColor = Colors.black,
   });
 
   @override
@@ -57,21 +61,18 @@ class _DatePickerFieldState extends State<DatePickerField> {
       validator: widget.validator,
       controller: widget.controller,
       readOnly: true,
+      style: TextStyle(color: widget.tColor),
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: TextStyleManager.loginFeildHint,
-        suffixIcon: const Icon(
-          Icons.calendar_today,
-          color: ColorsManager.mainAppColor,
-          size: 20,
-        ),
+        suffixIcon: Icon(Icons.calendar_today, color: widget.color, size: 20),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
-          borderSide: BorderSide(color: ColorsManager.mainAppColor, width: 1.w),
+          borderSide: BorderSide(color: widget.color, width: 1.w),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
-          borderSide: BorderSide(color: ColorsManager.mainAppColor, width: 1.w),
+          borderSide: BorderSide(color: widget.color, width: 1.w),
         ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r)),
       ),

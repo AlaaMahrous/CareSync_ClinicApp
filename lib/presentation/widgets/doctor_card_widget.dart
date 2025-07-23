@@ -64,7 +64,7 @@ class DoctorCardWidget extends StatelessWidget {
                   Column(
                     spacing: 10,
                     children: [
-                      CustomButton(text: 'Book', onTap: () {}),
+                      CustomButton1(text: 'Book', onTap: () {}),
                       Text(
                         '${doctor.consultationFee.toStringAsFixed(0)}\$',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
