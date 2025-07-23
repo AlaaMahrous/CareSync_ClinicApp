@@ -30,6 +30,7 @@ class DropFeild extends StatelessWidget {
       ),
       child: Center(
         child: DropdownButton2<String>(
+          underline: Container(height: 0),
           iconStyleData: IconStyleData(
             icon: Icon(Icons.arrow_drop_down, color: bColor),
           ),
