@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clinic/core/models/appointment_model.dart';
 import 'package:clinic/core/services/supabase/appointment_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
@@ -7,6 +8,7 @@ import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
+import 'package:clinic/presentation/widgets/overlap_dialog.dart';
 import 'package:clinic/presentation/widgets/time_picker_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -192,23 +194,47 @@ class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
         parsedTime.hour,
         parsedTime.minute,
       );
-
-      await AppointmentService.instance.addAppointment(
-        availableDate: selectedDateTime!,
-        duration: int.parse(_durationController.text),
+      final List<AppointmentModel> appointments = await AppointmentService
+          .instance
+          .getFilteredAppointments(
+            year: date.year,
+            month: date.month,
+            day: date.day,
+            isBooked: null,
+          );
+      bool isOverLapping = AppointmentService.instance.isOverlapping(
+        existingAppointments: appointments,
+        newStart: selectedDateTime!,
+        newDurationMinutes: int.parse(_durationController.text),
       );
-      await Future.delayed(const Duration(seconds: 1));
-      _showError('Session added successfully');
-      _dateController.clear();
-      _timeController.clear();
-      _durationController.clear();
-      if (mounted) {
-        context.read<DoctorAppointmentsCubit>().getFilteredAppointments(
-          year: DateTime.now().year,
-          month: DateTime.now().month,
-          day: DateTime.now().day,
-          isBooked: false,
+
+      if (!isOverLapping) {
+        await AppointmentService.instance.addAppointment(
+          availableDate: selectedDateTime!,
+          duration: int.parse(_durationController.text),
         );
+        _showError('Session added successfully');
+        _dateController.clear();
+        _timeController.clear();
+        _durationController.clear();
+        if (mounted) {
+          context.read<DoctorAppointmentsCubit>().getFilteredAppointments(
+            year: DateTime.now().year,
+            month: DateTime.now().month,
+            day: DateTime.now().day,
+            isBooked: false,
+          );
+        }
+      } else {
+        await Future.delayed(const Duration(seconds: 1));
+        showOverlapDialog(
+          context,
+          customMessage:
+              'The new appointment overlaps with a previously scheduled appointment. Please choose a different time.',
+        );
+        _dateController.clear();
+        _timeController.clear();
+        _durationController.clear();
       }
     } catch (e) {
       _showError('Something went wrong. Please try again.');
@@ -235,4 +261,13 @@ class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
   void _showError(String message) {
     showMessage(context, message, ColorsManager.mainAppColor);
   }
+}
+
+void showOverlapDialog(BuildContext context, {String? customMessage}) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return OverlapDialog(customMessage: customMessage!);
+    },
+  );
 }

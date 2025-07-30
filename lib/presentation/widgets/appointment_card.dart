@@ -57,7 +57,9 @@ class AppointmentCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            //AppointmentService.instance.updateAppointment(appointmentId: appointment.doctorId, availableDate: availableDate, duration: duration)
+                          },
                           child: const Icon(
                             HugeIcons.strokeRoundedEdit03,
                             color: ColorsManager.sAppColor,
