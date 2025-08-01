@@ -22,15 +22,16 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DoctorDetailsScreenBody extends StatefulWidget {
-  const DoctorDetailsScreenBody({super.key});
+class DoctorDetailsFormScreenBody extends StatefulWidget {
+  const DoctorDetailsFormScreenBody({super.key});
 
   @override
-  State<DoctorDetailsScreenBody> createState() =>
-      _DoctorDetailsScreenBodyState();
+  State<DoctorDetailsFormScreenBody> createState() =>
+      _DoctorDetailsFormScreenBodyState();
 }
 
-class _DoctorDetailsScreenBodyState extends State<DoctorDetailsScreenBody> {
+class _DoctorDetailsFormScreenBodyState
+    extends State<DoctorDetailsFormScreenBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   bool _isLoading = false;

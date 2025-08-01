@@ -7,8 +7,8 @@ import 'package:clinic/presentation/doctor_app.dart';
 import 'package:clinic/presentation/patient_app.dart';
 import 'package:clinic/presentation/screens/auth/login_screen.dart';
 import 'package:clinic/presentation/screens/auth/sign_up_screen.dart';
-import 'package:clinic/presentation/screens/doctor/doctor_details_screen.dart';
-import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_dashboard_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_details_form_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_schedule_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_sessions_screen.dart';
 import 'package:clinic/presentation/screens/onboarding_screen.dart';
@@ -40,8 +40,8 @@ class AppRouter {
         builder: (context, state) => const UserDetailsScreen(),
       ),
       GoRoute(
-        path: DoctorDetailsScreen.path,
-        builder: (context, state) => const DoctorDetailsScreen(),
+        path: DoctorDetailsFormScreen.path,
+        builder: (context, state) => const DoctorDetailsFormScreen(),
       ),
       GoRoute(
         path: ClinicApp.path,
@@ -59,8 +59,8 @@ class AppRouter {
         builder: (context, state) => const PatientApp(),
       ),
       GoRoute(
-        path: DoctorHomeScreen.path,
-        builder: (context, state) => const DoctorHomeScreen(),
+        path: DoctorDashboardScreen.path,
+        builder: (context, state) => const DoctorDashboardScreen(),
       ),
       GoRoute(
         path: PatientHomeScreen.path,

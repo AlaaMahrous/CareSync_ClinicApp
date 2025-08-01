@@ -160,11 +160,16 @@ class AppointmentService {
   Future<AppointmentCountsModel?> fetchAppointmentCounts({
     required int year,
     required int month,
+    required int doctorId,
   }) async {
     try {
       final response = await _client.rpc(
         'get_appointment_counts',
-        params: {'year_param': year, 'month_param': month},
+        params: {
+          'year_param': year,
+          'month_param': month,
+          'doctor_id_param': doctorId,
+        },
       );
 
       if (response != null && response is List && response.isNotEmpty) {

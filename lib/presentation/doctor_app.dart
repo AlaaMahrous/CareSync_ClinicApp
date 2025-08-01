@@ -1,5 +1,5 @@
 import 'package:clinic/core/utils/colors_manager.dart';
-import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_dashboard_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_schedule_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_sessions_screen.dart';
@@ -20,7 +20,7 @@ class _DoctorAppState extends State<DoctorApp> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    DoctorHomeScreen(),
+    DoctorDashboardScreen(),
     DoctorSessionsScreen(),
     DoctorScheduleScreen(),
     SearchPage(),
@@ -42,7 +42,7 @@ class _DoctorAppState extends State<DoctorApp> {
         items: <SalomonBottomBarItem>[
           SalomonBottomBarItem(
             icon: const Icon(CupertinoIcons.chart_bar),
-            title: const Text('Chat'),
+            title: const Text('Dashboard'),
           ),
           SalomonBottomBarItem(
             icon: const Icon(CupertinoIcons.collections),

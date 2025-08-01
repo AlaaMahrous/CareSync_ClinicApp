@@ -1,5 +1,4 @@
 import 'package:clinic/core/utils/colors_manager.dart';
-import 'package:clinic/presentation/screens/doctor/doctor_home_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -18,7 +17,6 @@ class _PatientAppState extends State<PatientApp> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    DoctorHomeScreen(),
     HomePage(),
     SearchPage(),
     SearchPage(),

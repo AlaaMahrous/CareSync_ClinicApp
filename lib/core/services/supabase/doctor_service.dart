@@ -103,20 +103,11 @@ class DoctorService {
     return DoctorProfileModel.fromMap(response[0]);
   }
 
-  Future<DoctorDashboardModel?> fetchDoctorDashBoard(int doctorId) async {
-    try {
-      final response = await _client.rpc(
-        'get_doctor_details',
-        params: {'doctor_id_param': doctorId},
-      );
-
-      if (response.isNotEmpty) {
-        return DoctorDashboardModel.fromJson(response[0]);
-      }
-      return null;
-    } catch (error) {
-      print('Error fetching doctor details: $error');
-      return null;
-    }
+  Future<DoctorDashboardModel> fetchDoctorDashBoard(int doctorId) async {
+    final response = await _client.rpc(
+      'get_doctor_details',
+      params: {'doctor_id_param': doctorId},
+    );
+    return DoctorDashboardModel.fromJson(response[0]);
   }
 }
