@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:clinic/core/models/appointment_counts_model.dart';
 import 'package:clinic/core/models/appointment_model.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
@@ -154,5 +155,26 @@ class AppointmentService {
     }
 
     return false;
+  }
+
+  Future<AppointmentCountsModel?> fetchAppointmentCounts({
+    required int year,
+    required int month,
+  }) async {
+    try {
+      final response = await _client.rpc(
+        'get_appointment_counts',
+        params: {'year_param': year, 'month_param': month},
+      );
+
+      if (response != null && response is List && response.isNotEmpty) {
+        return AppointmentCountsModel.fromMap(response[0]);
+      }
+
+      return null;
+    } catch (e) {
+      print('Error fetching appointment counts: $e');
+      return null;
+    }
   }
 }
