@@ -1,4 +1,5 @@
 import 'package:clinic/core/models/doctor_card_model.dart';
+import 'package:clinic/core/models/doctor_dashboard_model.dart';
 import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
@@ -102,14 +103,15 @@ class DoctorService {
     return DoctorProfileModel.fromMap(response[0]);
   }
 
-  Future<Map<String, dynamic>?> fetchDoctorDashBoard(int doctorId) async {
+  Future<DoctorDashboardModel?> fetchDoctorDashBoard(int doctorId) async {
     try {
       final response = await _client.rpc(
         'get_doctor_details',
         params: {'doctor_id_param': doctorId},
       );
+
       if (response.isNotEmpty) {
-        return response[0] as Map<String, dynamic>;
+        return DoctorDashboardModel.fromJson(response[0]);
       }
       return null;
     } catch (error) {
