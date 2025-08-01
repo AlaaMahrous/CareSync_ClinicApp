@@ -157,29 +157,20 @@ class AppointmentService {
     return false;
   }
 
-  Future<AppointmentCountsModel?> fetchAppointmentCounts({
+  Future<AppointmentCountsModel> fetchAppointmentCounts({
     required int year,
     required int month,
     required int doctorId,
   }) async {
-    try {
-      final response = await _client.rpc(
-        'get_appointment_counts',
-        params: {
-          'year_param': year,
-          'month_param': month,
-          'doctor_id_param': doctorId,
-        },
-      );
+    final response = await _client.rpc(
+      'get_appointment_counts',
+      params: {
+        'year_param': year,
+        'month_param': month,
+        'doctor_id_param': doctorId,
+      },
+    );
 
-      if (response != null && response is List && response.isNotEmpty) {
-        return AppointmentCountsModel.fromMap(response[0]);
-      }
-
-      return null;
-    } catch (e) {
-      print('Error fetching appointment counts: $e');
-      return null;
-    }
+    return AppointmentCountsModel.fromMap(response[0]);
   }
 }
