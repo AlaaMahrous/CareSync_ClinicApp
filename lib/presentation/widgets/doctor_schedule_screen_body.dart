@@ -8,7 +8,7 @@ import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
-import 'package:clinic/presentation/widgets/overlap_dialog.dart';
+import 'package:clinic/presentation/widgets/custom_content_dialog.dart';
 import 'package:clinic/presentation/widgets/time_picker_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -227,11 +227,7 @@ class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
         }
       } else {
         await Future.delayed(const Duration(seconds: 1));
-        showOverlapDialog(
-          context,
-          customMessage:
-              'The new appointment overlaps with a previously scheduled appointment. Please choose a different time.',
-        );
+        showOverlapDialog(context, customMessage: 'Appointments Overlap');
         _dateController.clear();
         _timeController.clear();
         _durationController.clear();
@@ -267,7 +263,17 @@ void showOverlapDialog(BuildContext context, {String? customMessage}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return OverlapDialog(customMessage: customMessage!);
+      return CustomContentDialog(
+        customTitle: customMessage!,
+        content: const Text(
+          'The new appointment overlaps with a previously scheduled appointment. Please choose a different time.',
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
     },
   );
 }

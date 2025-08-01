@@ -1,26 +1,24 @@
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
 
-class OverlapDialog extends StatelessWidget {
-  final String customMessage;
+class CustomContentDialog extends StatelessWidget {
+  final String customTitle;
+  final Widget content;
 
-  const OverlapDialog({super.key, required this.customMessage});
+  const CustomContentDialog({
+    super.key,
+    required this.customTitle,
+    required this.content,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'Appointment Conflict',
-        style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.bold),
+      title: Text(
+        customTitle,
+        style: const TextStyle(fontSize: 16.5, fontWeight: FontWeight.bold),
       ),
-      content: Text(
-        customMessage,
-        style: const TextStyle(
-          fontSize: 14,
-          fontFamily: 'Cairo',
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      content: content,
       actions: [
         TextButton(
           onPressed: () {
