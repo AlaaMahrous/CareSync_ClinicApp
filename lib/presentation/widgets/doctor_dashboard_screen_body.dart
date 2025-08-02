@@ -1,7 +1,7 @@
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/presentation/widgets/dashboard_info.dart';
 import 'package:clinic/presentation/widgets/gradient_line.dart';
-import 'package:clinic/presentation/widgets/today_sessions.dart';
+import 'package:clinic/presentation/widgets/today_appointments_sessions.dart';
 import 'package:flutter/material.dart';
 
 class DoctorDashboardScreenBody extends StatelessWidget {
@@ -23,7 +23,15 @@ class DoctorDashboardScreenBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     customTitle('Today\'s appointments'),
-                    const Row(children: [GradientLine(), TodaySessions()]),
+                    const SizedBox(
+                      height: 75,
+                      child: Row(
+                        children: [
+                          GradientLine(),
+                          Expanded(child: TodayAppointmentsSessions()),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

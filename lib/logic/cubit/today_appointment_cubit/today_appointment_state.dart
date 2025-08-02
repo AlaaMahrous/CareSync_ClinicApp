@@ -14,7 +14,7 @@ class TodayAppointmentFailed extends TodayAppointmentState {
 }
 
 class TodayAppointmentLoaded extends TodayAppointmentState {
-  final AppointmentCountsModel counts;
+  final List<AppointmentModel> appointments;
 
-  TodayAppointmentLoaded(this.counts);
+  TodayAppointmentLoaded(this.appointments);
 }

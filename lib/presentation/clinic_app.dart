@@ -1,5 +1,6 @@
 import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments_cubit.dart';
 import 'package:clinic/logic/cubit/doctor_dashboard_cubit/doctor_dashboard_cubit.dart';
+import 'package:clinic/logic/cubit/today_appointment_cubit/today_appointment_cubit.dart';
 import 'package:clinic/presentation/doctor_app.dart';
 import 'package:clinic/presentation/patient_app.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class ClinicApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => DoctorAppointmentsCubit()),
         BlocProvider(create: (context) => DoctorDashboardCubit()),
+        BlocProvider(create: (context) => TodayAppointmentCubit()),
       ],
       child: Scaffold(
         backgroundColor: Colors.white,
