@@ -8,7 +8,7 @@ part 'doctor_dashboard_state.dart';
 class DoctorDashboardCubit extends Cubit<DoctorDashboardState> {
   DoctorDashboardCubit() : super(DoctorDashboardInitial());
 
-  Future<void> getFilteredAppointments({required int doctorId}) async {
+  Future<void> getDoctorDashboard({required int doctorId}) async {
     emit(DoctorDashboardLoading());
     try {
       DoctorDashboardModel doctor = await DoctorService.instance
