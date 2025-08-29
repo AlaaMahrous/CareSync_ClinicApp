@@ -25,7 +25,7 @@ class _MonthlyStaticWidgetState extends State<MonthlyStaticWidget> {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.only(top: 10),
       child: Column(
         children: [
           Row(
@@ -41,10 +41,45 @@ class _MonthlyStaticWidgetState extends State<MonthlyStaticWidget> {
               ),
             ],
           ),
-          SizedBox(height: 40),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [Text('hi'), CustomIndicator()],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                spacing: 15,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'New availability you created this month: 255',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Cairo',
+                    ),
+                  ),
+                  Text(
+                    'Unbooked and available to schedule: 200',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Cairo',
+                    ),
+                  ),
+                  Text(
+                    'Reserved by patients: 55',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Cairo',
+                    ),
+                  ),
+                ],
+              ),
+              CustomIndicator(),
+            ],
           ),
         ],
       ),

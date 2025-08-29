@@ -8,10 +8,10 @@ class CustomIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
-      radius: 60,
-      lineWidth: 13,
+      radius: 53,
+      lineWidth: 12,
       animation: true,
-      percent: (55 / 100).clamp(0.0, 1.0),
+      percent: (50 / 100).clamp(0.0, 1.0),
       center: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -19,7 +19,15 @@ class CustomIndicator extends StatelessWidget {
             '50%',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
-          Text('Booked', style: TextStyle(fontSize: 10)),
+          Text(
+            'Booked',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Cairo',
+            ),
+          ),
         ],
       ),
       circularStrokeCap: CircularStrokeCap.round,
