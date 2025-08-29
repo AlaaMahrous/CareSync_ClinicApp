@@ -27,7 +27,9 @@ class _DashboardInfoState extends State<DashboardInfo> {
     return BlocBuilder<DoctorDashboardCubit, DoctorDashboardState>(
       builder: (context, state) {
         if (state is DoctorDashboardLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(color: ColorsManager.mainAppColor),
+          );
         } else if (state is DoctorDashboardLoaded) {
           final doctor = state.doctor;
 

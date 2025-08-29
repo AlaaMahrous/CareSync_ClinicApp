@@ -12,7 +12,7 @@ import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/lists_managar.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
-import 'package:clinic/presentation/doctor_app.dart';
+import 'package:clinic/presentation/clinic_app.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/drop_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
@@ -234,7 +234,7 @@ class _DoctorDetailsFormScreenBodyState
 
       _showMessage('Your profile has been successfully created.');
       if (mounted) {
-        GoRouter.of(context).go(DoctorApp.path);
+        GoRouter.of(context).go(ClinicApp.path);
       }
     } catch (e, stack) {
       log('Error in addDoctorData: $e\n$stack');

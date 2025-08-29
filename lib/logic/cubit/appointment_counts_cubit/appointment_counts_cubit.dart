@@ -11,12 +11,11 @@ class AppointmentCountsCubit extends Cubit<AppointmentCountsState> {
   Future<void> getAppointmentCounts({
     required int year,
     required int month,
-    required int doctorId,
   }) async {
     emit(AppointmentCountsLoading());
     try {
       AppointmentCountsModel? counts = await AppointmentService.instance
-          .fetchAppointmentCounts(year: year, month: month, doctorId: doctorId);
+          .fetchAppointmentCounts(year: year, month: month);
       emit(AppointmentCountsLoaded(counts));
     } catch (e, trace) {
       emit(AppointmentCountsFailed('$e\n$trace'));

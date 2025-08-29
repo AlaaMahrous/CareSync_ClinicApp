@@ -5,6 +5,7 @@ import 'package:clinic/core/services/supabase/appointment_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments_cubit.dart';
+import 'package:clinic/logic/cubit/today_appointment_cubit/today_appointment_cubit.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
 import 'package:clinic/presentation/widgets/date_picker_feild.dart';
 import 'package:clinic/presentation/widgets/info_text_feild.dart';
@@ -222,7 +223,12 @@ class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
             year: DateTime.now().year,
             month: DateTime.now().month,
             day: DateTime.now().day,
-            isBooked: false,
+            isBooked: null,
+          );
+          context.read<TodayAppointmentCubit>().getTodayAppointments(
+            year: DateTime.now().year,
+            month: DateTime.now().month,
+            day: DateTime.now().day,
           );
         }
       } else {
