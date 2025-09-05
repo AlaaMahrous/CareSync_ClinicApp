@@ -1,5 +1,6 @@
 import 'package:clinic/core/models/doctor_card_model.dart';
 import 'package:clinic/core/models/doctor_dashboard_model.dart';
+import 'package:clinic/core/models/doctor_feedback_model.dart';
 import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
@@ -109,5 +110,19 @@ class DoctorService {
       params: {'doctor_id_param': doctorId},
     );
     return DoctorDashboardModel.fromJson(response[0]);
+  }
+
+  Future<List<DoctorFeedbackModel>> getDoctorFeedback(int doctorId) async {
+    final response = await _client.rpc(
+      'get_doctor_feedback',
+      params: {'doctor_id_param': doctorId},
+    );
+
+    final feedbackList =
+        (response as List)
+            .map((item) => DoctorFeedbackModel.fromJson(item))
+            .toList();
+
+    return feedbackList;
   }
 }
