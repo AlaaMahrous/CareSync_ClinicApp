@@ -2,6 +2,7 @@ import 'package:clinic/core/models/doctor_card_model.dart';
 import 'package:clinic/core/models/doctor_dashboard_model.dart';
 import 'package:clinic/core/models/doctor_feedback_model.dart';
 import 'package:clinic/core/models/doctor_profile_model.dart';
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
@@ -12,6 +13,7 @@ class DoctorService {
   factory DoctorService() => instance;
   DoctorService._internal();
   final SupabaseClient _client = Supabase.instance.client;
+  final settings = SettingsService.getSettings();
   final String email = SupAuthService.instance.getCurrentUserEmail()!;
 
   Future<Map<String, dynamic>?> getDoctorData() async {
@@ -112,10 +114,10 @@ class DoctorService {
     return DoctorDashboardModel.fromJson(response[0]);
   }
 
-  Future<List<DoctorFeedbackModel>> getDoctorFeedback(int doctorId) async {
+  Future<List<DoctorFeedbackModel>> getDoctorFeedback() async {
     final response = await _client.rpc(
       'get_doctor_feedback',
-      params: {'doctor_id_param': doctorId},
+      params: {'doctor_id_param': settings.userId},
     );
 
     final feedbackList =

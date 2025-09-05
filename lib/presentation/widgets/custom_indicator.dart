@@ -1,9 +1,11 @@
+import 'package:clinic/core/models/appointment_counts_model.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class CustomIndicator extends StatelessWidget {
-  const CustomIndicator({super.key});
+  const CustomIndicator({super.key, required this.model});
+  final AppointmentCountsModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +13,16 @@ class CustomIndicator extends StatelessWidget {
       radius: 53,
       lineWidth: 12,
       animation: true,
-      percent: (50 / 100).clamp(0.0, 1.0),
-      center: const Column(
+      percent: (model.bookedCount / (model.availableCount + model.bookedCount))
+          .clamp(0.0, 1.0),
+      center: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '50%',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+            '${((model.bookedCount / (model.availableCount + model.bookedCount)) * 100).ceil()}%',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
-          Text(
+          const Text(
             'Booked',
             style: TextStyle(
               color: Colors.grey,

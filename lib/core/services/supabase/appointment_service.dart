@@ -162,7 +162,7 @@ class AppointmentService {
     required int month,
   }) async {
     final response = await _client.rpc(
-      'get_appointment_counts',
+      'get_appointment_count',
       params: {
         'year_param': year,
         'month_param': month,

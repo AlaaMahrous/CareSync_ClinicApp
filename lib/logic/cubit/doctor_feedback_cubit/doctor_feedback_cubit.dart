@@ -8,10 +8,10 @@ part 'doctor_feedback_state.dart';
 class DoctorFeedbackCubit extends Cubit<DoctorFeedbackState> {
   DoctorFeedbackCubit() : super(DoctorFeedbackInitial());
 
-  Future<void> getDoctorFeedback(int doctorId) async {
+  Future<void> getDoctorFeedback() async {
     emit(DoctorFeedbackLoading());
     try {
-      final feedbackList = await DoctorService().getDoctorFeedback(doctorId);
+      final feedbackList = await DoctorService().getDoctorFeedback();
       emit(DoctorFeedbackLoaded(feedbackList: feedbackList));
     } on Exception catch (e, stack) {
       emit(DoctorFeedbackFailed(errorMessage: '$e\n$stack'));
