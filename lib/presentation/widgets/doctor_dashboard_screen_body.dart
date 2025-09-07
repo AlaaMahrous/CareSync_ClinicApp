@@ -40,7 +40,6 @@ class DoctorDashboardScreenBody extends StatelessWidget {
                       height: 116,
                       child: MonthlyStaticViewWidget(),
                     ),
-                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [customTitle('Patients comments')],

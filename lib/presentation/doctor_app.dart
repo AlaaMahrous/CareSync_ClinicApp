@@ -1,5 +1,6 @@
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_dashboard_screen.dart';
+import 'package:clinic/presentation/screens/doctor/doctor_feeds_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_schedule_screen.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_sessions_screen.dart';
@@ -19,11 +20,11 @@ class DoctorApp extends StatefulWidget {
 class _DoctorAppState extends State<DoctorApp> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = <Widget>[
+  static List<Widget> _pages = <Widget>[
     DoctorDashboardScreen(),
     DoctorSessionsScreen(),
     DoctorScheduleScreen(),
-    SearchPage(),
+    DoctorFeedsScreen(),
     DoctorProfileScreen(),
   ];
 
@@ -69,17 +70,5 @@ class _DoctorAppState extends State<DoctorApp> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-}
-
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(child: Text('صفحة البحث', style: TextStyle(fontSize: 24))),
-    );
   }
 }

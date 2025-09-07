@@ -1,4 +1,3 @@
-import 'package:clinic/core/models/doctor_dashboard_model.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/logic/cubit/doctor_dashboard_cubit/doctor_dashboard_cubit.dart';
