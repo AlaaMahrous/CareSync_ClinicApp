@@ -3,6 +3,7 @@ import 'package:clinic/core/services/supabase/appointment_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/logic/cubit/doctor_appointments_cubit/doctor_appointments_cubit.dart';
 import 'package:clinic/presentation/widgets/custom_card.dart';
+import 'package:clinic/presentation/widgets/edit_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -58,8 +59,7 @@ class AppointmentCard extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            showDeleteMessage(context, () {});
-                            //AppointmentService.instance.updateAppointment(appointmentId: appointment.doctorId, availableDate: availableDate, duration: duration)
+                            showEditMessage(context, appointment);
                           },
                           child: const Icon(
                             HugeIcons.strokeRoundedEdit03,
@@ -176,6 +176,15 @@ void showDeleteMessage(BuildContext context, void Function() onPressed) {
           vertical: 16,
         ),
       );
+    },
+  );
+}
+
+void showEditMessage(BuildContext context, AppointmentModel appointment) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return EditDialogWidget(appointment: appointment, context1: context);
     },
   );
 }

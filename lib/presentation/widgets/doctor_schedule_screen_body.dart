@@ -26,7 +26,7 @@ class DoctorScheduleScreenBody extends StatefulWidget {
 
 class _DoctorScheduleScreenBodyState extends State<DoctorScheduleScreenBody> {
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController(); //
   final TextEditingController _durationController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
