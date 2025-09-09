@@ -58,6 +58,7 @@ class AppointmentCard extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
+                            showDeleteMessage(context, () {});
                             //AppointmentService.instance.updateAppointment(appointmentId: appointment.doctorId, availableDate: availableDate, duration: duration)
                           },
                           child: const Icon(
@@ -68,16 +69,18 @@ class AppointmentCard extends StatelessWidget {
                         const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
-                            AppointmentService.instance.deleteAppointment(
-                              appointment.id,
-                            );
-                            context
-                                .read<DoctorAppointmentsCubit>()
-                                .getFilteredAppointments(
-                                  year: appointment.availableDate.year,
-                                  month: appointment.availableDate.month,
-                                  day: appointment.availableDate.day,
-                                );
+                            showDeleteMessage(context, () {
+                              AppointmentService.instance.deleteAppointment(
+                                appointment.id,
+                              );
+                              context
+                                  .read<DoctorAppointmentsCubit>()
+                                  .getFilteredAppointments(
+                                    year: appointment.availableDate.year,
+                                    month: appointment.availableDate.month,
+                                    day: appointment.availableDate.day,
+                                  );
+                            });
                           },
                           child: const Icon(
                             HugeIcons.strokeRoundedDelete01,
@@ -110,4 +113,69 @@ class AppointmentCard extends StatelessWidget {
       ),
     );
   }
+}
+
+void showDeleteMessage(BuildContext context, void Function() onPressed) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Confirm Deletion',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: ColorsManager.mainAppColor,
+            fontFamily: 'Cairo',
+          ),
+        ),
+        content: const Text(
+          'Are you sure you want to delete this appointment?',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+            fontFamily: 'Cairo',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              onPressed.call();
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              'Delete',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Cairo',
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              'Cancel',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: ColorsManager.mainAppColor,
+                fontFamily: 'Cairo',
+              ),
+            ),
+          ),
+        ],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        backgroundColor: Colors.white,
+        elevation: 8,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 16,
+        ),
+      );
+    },
+  );
 }
