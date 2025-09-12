@@ -7,6 +7,6 @@ class DoctorDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DoctorDashboardScreenBody();
+    return const DoctorDashboardScreenBody();
   }
 }

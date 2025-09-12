@@ -20,12 +20,12 @@ class DoctorApp extends StatefulWidget {
 class _DoctorAppState extends State<DoctorApp> {
   int _selectedIndex = 0;
 
-  static List<Widget> _pages = <Widget>[
-    DoctorDashboardScreen(),
-    DoctorSessionsScreen(),
-    DoctorScheduleScreen(),
+  static final List<Widget> _pages = <Widget>[
+    const DoctorDashboardScreen(),
+    const DoctorSessionsScreen(),
+    const DoctorScheduleScreen(),
     DoctorFeedsScreen(),
-    DoctorProfileScreen(),
+    const DoctorProfileScreen(),
   ];
 
   @override

@@ -1,5 +1,4 @@
 import 'package:clinic/core/utils/colors_manager.dart';
-import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
 import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -21,7 +20,7 @@ class _PatientAppState extends State<PatientApp> {
     PatientHomeScreen(),
     SearchPage(),
     SearchPage(),
-    DoctorProfileScreen(),
+    HomePage(),
   ];
 
   @override
@@ -49,11 +48,11 @@ class _PatientAppState extends State<PatientApp> {
             icon: const Icon(CupertinoIcons.captions_bubble),
             title: const Text('Chat'),
           ),
-          SalomonBottomBarItem(
+          /*SalomonBottomBarItem(
             icon: const Icon(HugeIcons.strokeRoundedClock01),
             title: const Text('Schedule'),
           ),
-          /*SalomonBottomBarItem(
+          SalomonBottomBarItem(
             icon: const Icon(HugeIcons.strokeRoundedNotification03),
             title: const Text('Schedule'),
           ),*/
