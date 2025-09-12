@@ -9,17 +9,19 @@ class CustomIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int total = model.availableCount + model.bookedCount;
+    final double percent = total == 0 ? 0 : model.bookedCount / total;
+
     return CircularPercentIndicator(
       radius: 53,
       lineWidth: 12,
       animation: true,
-      percent: (model.bookedCount / (model.availableCount + model.bookedCount))
-          .clamp(0.0, 1.0),
+      percent: percent.clamp(0.0, 1.0),
       center: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '${((model.bookedCount / (model.availableCount + model.bookedCount)) * 100).ceil()}%',
+            '${(total == 0 ? 0 : (percent * 100).ceil())}%',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
           const Text(

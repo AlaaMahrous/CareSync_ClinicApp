@@ -25,6 +25,7 @@ class SettingsService {
         isLoggedIn: false,
         isDoctor: false,
         userId: '',
+        email: '', // اضيف الافتراضي
       ),
     )!;
   }
@@ -34,12 +35,14 @@ class SettingsService {
     bool? isLoggedIn,
     bool? isDoctor,
     String? userId,
+    String? email, // جديد
   }) {
     final settings = getSettings();
     settings.isFirstTime = isFirstTime ?? settings.isFirstTime;
     settings.isLoggedIn = isLoggedIn ?? settings.isLoggedIn;
     settings.isDoctor = isDoctor ?? settings.isDoctor;
     settings.userId = userId ?? settings.userId;
+    settings.email = email ?? settings.email; // جديد
     settings.save();
   }
 }

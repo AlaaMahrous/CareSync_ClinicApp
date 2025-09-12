@@ -47,7 +47,11 @@ class MonthlyStaticCard extends StatelessWidget {
                 ),
               ],
             ),
-            CustomIndicator(model: model),
+            SizedBox(
+              width: 110,
+              height: 110,
+              child: CustomIndicator(model: model),
+            ),
           ],
         ),
       ],

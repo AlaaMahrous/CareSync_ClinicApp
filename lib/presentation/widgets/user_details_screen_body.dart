@@ -5,7 +5,6 @@ import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/image_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/core/utils/text_style_manager.dart';
-import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:clinic/presentation/clinic_app.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_details_form_screen.dart';
 import 'package:clinic/presentation/widgets/custom_button.dart';
@@ -160,8 +159,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreenBody> {
           userGender: selectedUserGender!,
           userRole: selectedUserType!,
         );
-        final email = SupAuthService.instance.getCurrentUserEmail();
-        final userId = await UserService.instance.getUserId(email!);
+        final email = SettingsService.getSettings().email;
+        final userId = await UserService.instance.getUserId(email);
         final userType = await UserService.instance.getUserType(email);
         bool isDoctor;
         (userType == AppConstants.doctor) ? isDoctor = true : isDoctor = false;

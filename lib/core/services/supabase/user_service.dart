@@ -1,5 +1,5 @@
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
-import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserService {
@@ -7,7 +7,7 @@ class UserService {
   factory UserService() => instance;
   UserService._internal();
   final SupabaseClient _client = Supabase.instance.client;
-  final String email = SupAuthService.instance.getCurrentUserEmail()!;
+  final settings = SettingsService.getSettings();
 
   Future<void> insertUserData({
     required String firstName,
@@ -19,7 +19,7 @@ class UserService {
     await _client.from(AppConstants.usersTable).insert({
       AppConstants.userFirstName: firstName,
       AppConstants.userLastName: lastName,
-      AppConstants.userEmail: email,
+      AppConstants.userEmail: settings.email,
       AppConstants.userBirthDate: birthDate,
       AppConstants.userGender: userGender,
       AppConstants.userUserType: userRole,

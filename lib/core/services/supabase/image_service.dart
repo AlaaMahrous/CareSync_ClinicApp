@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:clinic/logic/auth/sup_auth_service.dart';
 
 class ImageService {
   static final ImageService instance = ImageService._internal();
@@ -17,7 +17,7 @@ class ImageService {
 
   Future<String?> uploadAndSaveImage(File imageFile) async {
     try {
-      final userId = SupAuthService.instance.getCurrentUserId();
+      final userId = SettingsService.getSettings().userId;
       final path = 'profile/$userId';
 
       await Supabase.instance.client.storage

@@ -5,7 +5,6 @@ import 'package:clinic/core/models/doctor_profile_model.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
-import 'package:clinic/logic/auth/sup_auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DoctorService {
@@ -14,10 +13,9 @@ class DoctorService {
   DoctorService._internal();
   final SupabaseClient _client = Supabase.instance.client;
   final settings = SettingsService.getSettings();
-  final String email = SupAuthService.instance.getCurrentUserEmail()!;
 
   Future<Map<String, dynamic>?> getDoctorData() async {
-    final int userId = await UserService().getUserId(email);
+    final int userId = await UserService().getUserId(settings.email);
     final response =
         await _client
             .from(AppConstants.doctorsTable)
@@ -41,7 +39,7 @@ class DoctorService {
     String? info,
     String? phone,
   }) async {
-    final int userId = await UserService().getUserId(email);
+    final int userId = await UserService().getUserId(settings.email);
     await _client.from(AppConstants.doctorsTable).insert({
       AppConstants.doctorUserId: userId,
       AppConstants.doctorSpecializationId: specialization,
@@ -63,7 +61,7 @@ class DoctorService {
     String? info,
     String? phone,
   }) async {
-    final int userId = await UserService().getUserId(email);
+    final int userId = await UserService().getUserId(settings.email);
     Map<String, dynamic> updatedData = {};
     if (specialization != null) {
       updatedData[AppConstants.doctorSpecializationId] = specialization;

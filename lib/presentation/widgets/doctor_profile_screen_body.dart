@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:clinic/core/models/doctor_profile_model.dart';
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
@@ -147,6 +148,7 @@ class DoctorProfileScreenBody extends StatelessWidget {
   void logOutMethod(BuildContext context) {
     try {
       SupAuthService.instance.signOut();
+      SettingsService.updateSettings(email: '', isLoggedIn: false, userId: '');
       showMessage(
         context,
         'You have successfully logged out!',

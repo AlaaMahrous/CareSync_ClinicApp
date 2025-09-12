@@ -21,13 +21,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       isLoggedIn: fields[1] as bool,
       isDoctor: fields[2] as bool,
       userId: fields[3] as String,
+      email: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.isFirstTime)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(2)
       ..write(obj.isDoctor)
       ..writeByte(3)
-      ..write(obj.userId);
+      ..write(obj.userId)
+      ..writeByte(4)
+      ..write(obj.email);
   }
 
   @override

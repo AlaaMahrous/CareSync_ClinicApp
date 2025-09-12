@@ -1,5 +1,6 @@
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/presentation/screens/doctor/doctor_profile_screen.dart';
+import 'package:clinic/presentation/screens/patient/patient_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,7 +18,7 @@ class _PatientAppState extends State<PatientApp> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    HomePage(),
+    PatientHomeScreen(),
     SearchPage(),
     SearchPage(),
     DoctorProfileScreen(),
@@ -52,10 +53,10 @@ class _PatientAppState extends State<PatientApp> {
             icon: const Icon(HugeIcons.strokeRoundedClock01),
             title: const Text('Schedule'),
           ),
-          SalomonBottomBarItem(
+          /*SalomonBottomBarItem(
             icon: const Icon(HugeIcons.strokeRoundedNotification03),
             title: const Text('Schedule'),
-          ),
+          ),*/
           SalomonBottomBarItem(
             icon: const Icon(CupertinoIcons.person),
             title: const Text('Profile'),

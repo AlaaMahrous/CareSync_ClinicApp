@@ -1,3 +1,4 @@
+import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
@@ -86,6 +87,7 @@ class _SignUpScreenFormState extends State<SignUpScreenForm> {
         email!,
         password!,
       );
+      SettingsService.updateSettings(email: email);
       if (response.session != null) {
         _showError("Sign up successful!");
         if (mounted) {

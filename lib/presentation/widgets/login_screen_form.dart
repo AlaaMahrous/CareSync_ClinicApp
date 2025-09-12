@@ -91,7 +91,8 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
           password!,
         );
         if (response.session != null) {
-          String userEmail = SupAuthService.instance.getCurrentUserEmail()!;
+          String userEmail = email!;
+          SettingsService.updateSettings(email: email);
           if (userEmail.isNotEmpty) {
             final userType = await UserService.instance.getUserType(userEmail);
             String userId;

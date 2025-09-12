@@ -16,10 +16,14 @@ class SettingsModel extends HiveObject {
   @HiveField(3)
   String userId;
 
+  @HiveField(4) // حقل جديد للإيميل
+  String email;
+
   SettingsModel({
     required this.isFirstTime,
     required this.isLoggedIn,
     required this.isDoctor,
     required this.userId,
+    required this.email,
   });
 }
