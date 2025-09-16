@@ -13,16 +13,18 @@ class NotificationService {
   Future<void> init() async {
     await _firebaseMessaging.requestPermission();
 
-    // تهيئة local notifications
-    /*const AndroidInitializationSettings androidSettings =
+    const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings initSettings =
-        InitializationSettings(android: androidSettings);
+
+    const InitializationSettings initSettings = InitializationSettings(
+      android: androidSettings,
+    );
+
     await _localNotifications.initialize(initSettings);
-    // استمع للـ foreground messages
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      _showLocalNotification(message);
-    });*/
+      showLocalNotification(message);
+    });
   }
 
   Future<String?> getFcmToken() async {
@@ -36,21 +38,22 @@ class NotificationService {
   Future<void> showLocalNotification(RemoteMessage message) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
-          'default_channel',
-          'General Notifications',
+          'clinic_channel',
+          'Clinic Notifications',
           importance: Importance.max,
           priority: Priority.high,
+          playSound: true,
         );
 
-    const NotificationDetails notificationDetails = NotificationDetails(
+    const NotificationDetails generalNotificationDetails = NotificationDetails(
       android: androidDetails,
     );
 
     await _localNotifications.show(
-      message.notification.hashCode,
+      DateTime.now().millisecondsSinceEpoch ~/ 1000,
       message.notification?.title ?? 'No Title',
       message.notification?.body ?? 'No Body',
-      notificationDetails,
+      generalNotificationDetails,
     );
   }
 }
