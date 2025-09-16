@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:clinic/core/models/doctor_profile_model.dart';
+import 'package:clinic/core/services/firebase/notification_service.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/core/utils/show_snack_bar.dart';
@@ -145,9 +146,10 @@ class DoctorProfileScreenBody extends StatelessWidget {
     );
   }
 
-  void logOutMethod(BuildContext context) {
+  void logOutMethod(BuildContext context) async {
     try {
-      SupAuthService.instance.signOut();
+      await SupAuthService.instance.signOut();
+      await NotificationService().deleteFcmToken();
       SettingsService.updateSettings(email: '', isLoggedIn: false, userId: '');
       showMessage(
         context,

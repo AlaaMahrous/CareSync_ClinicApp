@@ -1,3 +1,4 @@
+import 'package:clinic/core/services/firebase/notification_service.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/utils/app_constants.dart';
 import 'package:clinic/logic/auth/sup_auth_service.dart';
@@ -18,6 +19,7 @@ void main() async {
   );
   await SettingsService.init();
   SupAuthService.instance.initialize();
+  await NotificationService().init();
 
   runApp(
     ScreenUtilInit(

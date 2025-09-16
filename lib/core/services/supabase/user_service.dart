@@ -67,4 +67,14 @@ class UserService {
 
     return userType?[AppConstants.userUserType];
   }
+
+  Future<void> updateFcmTokenByEmail({
+    required String email,
+    required String fcmToken,
+  }) async {
+    await _client
+        .from('Users')
+        .update({'fcm_token': fcmToken})
+        .eq('email', email);
+  }
 }

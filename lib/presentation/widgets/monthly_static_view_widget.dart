@@ -1,4 +1,5 @@
 import 'package:clinic/core/models/appointment_counts_model.dart';
+import 'package:clinic/core/utils/colors_manager.dart';
 import 'package:clinic/logic/cubit/appointment_counts_cubit/appointment_counts_cubit.dart';
 import 'package:clinic/presentation/widgets/monthly_static_card.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,9 @@ class _MonthlyStaticViewWidgetState extends State<MonthlyStaticViewWidget> {
     return BlocBuilder<AppointmentCountsCubit, AppointmentCountsState>(
       builder: (context, state) {
         if (state is AppointmentCountsLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(color: ColorsManager.mainAppColor),
+          );
         } else if (state is AppointmentCountsLoaded) {
           if (state.counts == null) {
             return const Center(child: Text("No statistics available."));

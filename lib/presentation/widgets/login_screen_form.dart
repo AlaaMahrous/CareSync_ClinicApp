@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:clinic/core/services/firebase/notification_service.dart';
 import 'package:clinic/core/services/hive/hive_setting_service.dart';
 import 'package:clinic/core/services/supabase/doctor_service.dart';
 import 'package:clinic/core/services/supabase/user_service.dart';
@@ -90,30 +91,49 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
           email!,
           password!,
         );
-        if (response.session != null) {
+
+        // ✅ في الـ API الجديد: signInWithPassword بيرجع AuthResponse
+        final session = response.session;
+        final user = response.user;
+
+        if (session != null && user != null) {
           String userEmail = email!;
-          SettingsService.updateSettings(email: email);
-          if (userEmail.isNotEmpty) {
-            final userType = await UserService.instance.getUserType(userEmail);
-            String userId;
-            if (userType == AppConstants.doctor) {
-              Map<String, dynamic>? doctorData =
-                  await DoctorService.instance.getDoctorData();
-              userId = doctorData![AppConstants.doctorId].toString();
-              SettingsService.updateSettings(isDoctor: true, userId: userId);
-              if (mounted) {
-                _showError("Login successful!");
-                GoRouter.of(context).go(ClinicApp.path);
-              }
-            } else {
-              userId = UserService.instance.getUserId(userEmail).toString();
-              SettingsService.updateSettings(isDoctor: false, userId: userId);
-              if (mounted) {
-                _showError("Login successful!");
-                GoRouter.of(context).go(ClinicApp.path);
-              }
+          SettingsService.updateSettings(email: userEmail);
+
+          final token = await NotificationService().getFcmToken();
+          if (token != null) {
+            await UserService().updateFcmTokenByEmail(
+              email: userEmail,
+              fcmToken: token,
+            );
+          }
+
+          final userType = await UserService.instance.getUserType(userEmail);
+          String userId;
+
+          if (userType == AppConstants.doctor) {
+            final doctorData = await DoctorService.instance.getDoctorData();
+            userId = doctorData![AppConstants.doctorId].toString();
+
+            SettingsService.updateSettings(isDoctor: true, userId: userId);
+
+            if (mounted) {
+              _showError("Login successful!");
+              GoRouter.of(context).go(ClinicApp.path);
+            }
+          } else {
+            userId = UserService.instance.getUserId(userEmail).toString();
+
+            SettingsService.updateSettings(isDoctor: false, userId: userId);
+
+            if (mounted) {
+              _showError("Login successful!");
+              GoRouter.of(context).go(ClinicApp.path);
             }
           }
+        } else {
+          // لما ميكونش فيه user/session
+          _showError("Login failed: Invalid credentials.");
         }
       } on AuthException catch (e) {
         debugPrint("AuthException: ${e.message}");
